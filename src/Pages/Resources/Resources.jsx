@@ -6,6 +6,7 @@ const Resources = () => {
   // State to store the selected filters
   const [search, setSearch] = useState({
     resources: "",
+    sort: "newest",
     country: "",
     state: "",
     city: "",
@@ -99,6 +100,22 @@ const Resources = () => {
                 placeholder="Search Resources"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
+            </div>
+
+            <div className="mb-4">
+              <select
+                name="sort"
+                value={search.sort}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              >
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="highest">Highest</option>
+                <option value="lowest">Lowest</option>
+                <option value="a to z">Name A to Z</option>
+                <option value="z to a">Name Z to A</option>
+              </select>
             </div>
 
             <div className="mb-4">

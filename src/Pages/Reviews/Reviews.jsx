@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { Rating } from "@smastrom/react-rating";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Reviews = () => {
   // State to store the selected filters
   const [search, setSearch] = useState({
     landlord: "",
+    sort: "newest",
     country: "",
     state: "",
     city: "",
@@ -20,7 +22,7 @@ const Reviews = () => {
   console.log(report);
 
   const [review, setReview] = useState({
-    landlordName: "Md Biplob hossain",
+    landlordName: "Md Biplob hossain Md Biplob hossain",
     country: "Australia",
     city: "Dhaka",
     state: "rajshahi",
@@ -45,6 +47,8 @@ const Reviews = () => {
       [name]: value,
     }));
   };
+  const { state, city, zipCode, country } = review;
+  const location = city + " " + state + " " + country + " " + zipCode;
 
   // Handle clearing the filters
   const clearFilters = () => {
@@ -96,6 +100,21 @@ const Reviews = () => {
               />
             </div>
 
+            <div className="mb-4">
+              <select
+                name="sort"
+                value={search.sort}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              >
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="highest">Highest</option>
+                <option value="lowest">Lowest</option>
+                <option value="a to z">Name A to Z</option>
+                <option value="z to a">Name Z to A</option>
+              </select>
+            </div>
             <div className="mb-4">
               <select
                 name="country"
@@ -171,7 +190,15 @@ const Reviews = () => {
           <div className="m-5 rounded-2xl">
             <div className="mb-5 mx-auto min-h-[350px] shadow-lg border rounded-2xl flex">
               <div className="w-3/12 bg-gray-50 min-h-[350px]  pt-4 flex flex-col items-center justify-start rounded-2xl">
-                <h1 className="font-[500]">{review?.landlordName}</h1>
+                <Link
+                  to={`/single/landlord/${review?.landlordName}`}
+                  className=" w-full text-center px-2 hover:underline"
+                >
+                  <h1 className="font-[500] text-[19px]">
+                    {review?.landlordName}
+                  </h1>
+                  <p className="text-center">Read All Reviews</p>
+                </Link>
                 <div>
                   <Rating
                     style={{ maxWidth: 80, color: "yellow" }}
@@ -179,20 +206,25 @@ const Reviews = () => {
                     readOnly={true}
                   />
                 </div>
-                <div className="flex mx-2 items-center justify-start mt-4 text-[#6B7280]">
-                  <h1>
-                    {review?.city}
-                    {","}
-                  </h1>
-                  <h1 className="ml-2">{review?.state}</h1>
-                </div>
-                <div className="flex mx-2 items-center justify-start text-[#6B7280]">
-                  <h1>
-                    {review?.country}
-                    {","}
-                  </h1>
-                  <h1 className="ml-2">{review?.zipCode}</h1>
-                </div>
+                <Link
+                  to={`/single/location/${location}`}
+                  className="hover:underline cursor-pointer"
+                >
+                  <div className="flex mx-2 items-center justify-start mt-4 text-[#6B7280]">
+                    <h1>
+                      {review?.city}
+                      {","}
+                    </h1>
+                    <h1 className="ml-2">{review?.state}</h1>
+                  </div>
+                  <div className="flex mx-2 items-center justify-start text-[#6B7280]">
+                    <h1>
+                      {review?.country}
+                      {","}
+                    </h1>
+                    <h1 className="ml-2">{review?.zipCode}</h1>
+                  </div>
+                </Link>
 
                 <div>
                   <h1 className="mt-3 text-[#6B7280]">{review?.date}</h1>

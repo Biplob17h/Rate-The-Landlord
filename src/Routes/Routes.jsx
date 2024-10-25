@@ -9,6 +9,8 @@ import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import SubmitAReview from "../Pages/SubmitAReview/SubmitAReview";
 import SubmitForm from "../Pages/SubmitForm/SubmitForm";
 import Reviews from "../Pages/Reviews/Reviews";
+import LandlordSinglePage from "../Pages/SinglePage/LandlordSinglePage/LandlordSinglePage";
+import LocationSinglePage from "../Pages/SinglePage/LocationSinglePage/LocationSinglePage";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +52,14 @@ const routes = createBrowserRouter([
       {
         path: "/submit-form",
         element: <SubmitForm />,
+      },
+      {
+        path: "/single/landlord/:landlord",
+        element: <LandlordSinglePage />,
+      },
+      {
+        path: "/single/location/:location",
+        element: <LocationSinglePage />,
       },
     ],
   },

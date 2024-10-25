@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import img from "../../../assets/friends.webp";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -19,18 +20,24 @@ const Banner = () => {
               landlord accountability.
             </p>
             <div className="flex space-x-4">
-              <button className="px-6 py-3 bg-teal-600 text-white rounded-md hover:bg-teal-700">
-                Submit a Review
-              </button>
-              <button className="px-6 py-3 border-2 border-teal-600 text-teal-600 rounded-md hover:bg-gray-100">
-                Read Reviews
-              </button>
+              <Link to={"/submit"}>
+                <button className="px-6 py-3 bg-teal-600 text-white rounded-md hover:bg-teal-700">
+                  Submit a Review
+                </button>
+              </Link>
+              <Link to={"/reviews"}>
+                <button className="px-6 py-3 border-2 border-teal-600 text-teal-600 rounded-md hover:bg-gray-100">
+                  Read Reviews
+                </button>
+              </Link>
             </div>
           </div>
 
           {/* Right side: Full-width Image masked inside a house shape */}
           <div className="w-1/2 flex justify-end">
-            <div className="relative w-full h-[500px]"> {/* Increased width and height */}
+            <div className="relative w-full h-[500px]">
+              {" "}
+              {/* Increased width and height */}
               {/* SVG mask for house shape */}
               <svg
                 viewBox="0 0 1024 1024"
