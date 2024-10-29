@@ -4,15 +4,15 @@ import { FaPatreon } from "react-icons/fa6";
 
 const SupportUs = () => {
   return (
-    <div className="bg-white text-center text-[#111827]">
+    <div className="bg-white text-center text-[#111827] px-4 sm:px-8 lg:px-16">
       {/* Support Us section*/}
-      <section className="mt-[130px]">
-        <h1 className="text-[#4f46e5] font-bold">Support Us</h1>
-        <div className=" w-[730px] mx-auto">
-          <h1 className="text-4xl mt-4 ">
+      <section className="mt-10 md:mt-[130px]">
+        <h1 className="text-[#d6cc32] font-bold">Support Us</h1>
+        <div className="w-full sm:w-[600px] lg:w-[730px] mx-auto">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl mt-4">
             Support Rate The Landlord in our journey
           </h1>
-          <p className="mt-4 px-[40px] text-[18px] text-[#4B5563] opacity-95">
+          <p className="mt-4 px-4 sm:px-8 md:px-[40px] text-base sm:text-lg text-[#4B5563] opacity-95">
             Rate The Landlord is on a mission to empower renters, promote
             transparency, and build a global community dedicated to fostering
             positive landlord-tenant relationships. As we continue to grow and
@@ -22,12 +22,12 @@ const SupportUs = () => {
         </div>
       </section>
 
-      {/* Card  Section*/}
-      <section className="grid max-w-[950px] mx-auto grid-cols-3 gap-x-8 gap-y-10  mt-[130px]">
-        {/* 1st card */}
-        <div className="relative pl-16 text-start">
-          <dt className="text-base  leading-7 text-gray-900">
-            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+      {/* Card Section */}
+      <section className="grid max-w-[950px] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mt-10 md:mt-[130px]">
+        {/* Card 1 */}
+        <div className="relative pl-10 md:pl-16 text-start">
+          <dt className="text-base leading-7 text-gray-900">
+            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#d6cc32]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -44,17 +44,20 @@ const SupportUs = () => {
                 ></path>
               </svg>
             </div>
-            Platform Enhancements
           </dt>
-          <dd className="mt-2 text-base leading-7 text-gray-600">
-            Supporting ongoing development to introduce new features and improve
-            user experience.
-          </dd>
+          <div className="ml-5 md:ml-0">
+            <h1>Platform Enhancements</h1>
+            <dd className="mt-2 text-base leading-7 text-gray-600">
+              Supporting ongoing development to introduce new features and
+              improve user experience.
+            </dd>
+          </div>
         </div>
-        {/* 2nd card */}
-        <div className="relative pl-16 text-start">
-          <dt className="text-base  leading-7 text-gray-900">
-            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+
+        {/* Card 2 */}
+        <div className="relative pl-10 md:pl-16 text-start">
+          <dt className="text-base leading-7 text-gray-900">
+            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#d6cc32]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -71,17 +74,20 @@ const SupportUs = () => {
                 ></path>
               </svg>
             </div>
-            Server Maintenance
           </dt>
-          <dd className="mt-2 text-base leading-7 text-gray-600">
-            Ensuring our platform stays accessible and reliable for users
-            worldwide.
-          </dd>
+          <div className="ml-5 md:ml-0">
+            <h1>Server Maintenance</h1>
+            <dd className="mt-2 text-base leading-7 text-gray-600">
+              Ensuring our platform stays accessible and reliable for users
+              worldwide.
+            </dd>
+          </div>
         </div>
-        {/* 3rd card */}
-        <div className="relative pl-16 text-start">
-          <dt className="text-base  leading-7 text-gray-900">
-            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+
+        {/* Card 3 */}
+        <div className="relative pl-10 md:pl-16 text-start">
+          <dt className="text-base leading-7 text-gray-900">
+            <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[#d6cc32] ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -98,24 +104,26 @@ const SupportUs = () => {
                 ></path>
               </svg>
             </div>
-            Community Initiatives
           </dt>
-          <dd className="mt-2 text-base leading-7 text-gray-600">
-            Enabling us to host events and campaigns that bring our community
-            together.
-          </dd>
+          <div className="ml-5 md:ml-0">
+            <h1>Community Initiatives</h1>
+            <div className="mt-2 text-base leading-7 text-gray-600">
+              Enabling us to host events and campaigns that bring our community
+              together.
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Paragraph  Section*/}
-      <section className="mt-[130px] w-[800px] text-center mx-auto">
-        <p className="mt-6 text-lg leading-8 text-gray-600">
+      {/* Paragraph Section */}
+      <section className="mt-10 md:mt-[130px] w-full sm:w-[700px] lg:w-[800px] mx-auto text-center">
+        <p className="mt-6 text-base sm:text-lg leading-8 text-gray-600">
           Until now, the site has been supported by Ad Revenue, but it
           doesn&#39;t always cover our monthly costs to keep the site running.
           If we want to continue to grow the site and offer more resources, we
-          need the support of the community
+          need the support of the community.
         </p>
-        <p className="mt-6 text-lg leading-8 text-gray-600">
+        <p className="mt-6 text-base sm:text-lg leading-8 text-gray-600">
           Rest assured though that we are NOT using this platform as a way to
           enrich ourselves. Any money left over after overhead costs will be put
           right back into site through various means such as advertising,
@@ -124,10 +132,10 @@ const SupportUs = () => {
           Tenant Union&rsquo;s and resources to help spread the support!
         </p>
 
-        <button className="border border-[#0d9488] rounded-[8px] mt-[50px]">
-          <div className="flex justify-center items-center px-10 hover:bg-gray-200 rounded-[8px]">
-            <FaPatreon color="#0d9488" size={20} />
-            <span className="w-full text-center text-teal-600 py-4 text-lg ">
+        <button className="border border-[#d6cc32] rounded-[8px] mt-8 md:mt-[50px]">
+          <div className="flex justify-center items-center px-4 sm:px-6 md:px-10 py-2 hover:bg-gray-200 rounded-[8px]">
+            <FaPatreon color="#d6cc32" size={20} />
+            <span className="text-[#d6cc32] ml-2 text-base md:text-lg">
               Patreon
             </span>
           </div>
@@ -135,11 +143,11 @@ const SupportUs = () => {
       </section>
 
       {/* Supporters section */}
-      <section className="container mx-auto text-center mt-[130px]">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+      <section className="container mx-auto text-center mt-10 md:mt-[130px]">
+        <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
           Our Generous Supporters
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white p-4 rounded-lg shadow">
             <h4 className="text-lg font-bold">Christina Vist</h4>
             <p className="text-gray-600">Key Contributor</p>
@@ -149,8 +157,8 @@ const SupportUs = () => {
             <p className="text-gray-600">Guardian of Good Homes</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
-            <h4 className="text-lg font-bold">Stephen Martin</h4>
-            <p className="text-gray-600">Guardian of Good Homes</p>
+            <h4 className="text-lg font-bold">John Cameron</h4>
+            <p className="text-gray-600">Key Contributor</p>
           </div>
         </div>
       </section>

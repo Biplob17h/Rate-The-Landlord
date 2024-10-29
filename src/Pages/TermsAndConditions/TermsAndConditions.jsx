@@ -1,10 +1,10 @@
 const TermsAndConditions = () => {
   return (
-    <div className="text-[18px] max-w-6xl mx-auto my-10">
-      <h1 className="text-4xl font-[800] text-center">
+    <div className="text-[18px] max-w-6xl md:mx-auto my-10 mx-5 ">
+      <h1 className="text-2xl md:text-4xl font-[800] text-center">
         Terms and Conditions
       </h1>
-      <p>
+      <p className="mt-3 md:mt-5">
         Welcome to ratethelandlord.org. By accessing this website, you agree to
         comply with and be bound by the following terms and conditions of use.
         Please read these terms carefully before using this website.

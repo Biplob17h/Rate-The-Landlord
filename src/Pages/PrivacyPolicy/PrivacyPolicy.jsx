@@ -1,11 +1,10 @@
 const PrivacyPolicy = () => {
   return (
-    <div className="text-[18px] max-w-6xl mx-auto my-10">
+    <div className="text-[18px] max-w-6xl md:mx-auto my-10 mx-5">
       <h1 className="text-4xl font-[800] text-center">Privacy Policy</h1>
-      <p>
+      <p className="mt-3 md:mt-5">
         We at ratethelandlord.org value your privacy and are committed to
-        maintaining the confidentiality of your information. This Privacy Policy
-        outlines how we handle data on our website:
+        maintaining the confidentiality of your information. This         outlines how we handle data on our website:
       </p>
 
       <div className="mt-3">

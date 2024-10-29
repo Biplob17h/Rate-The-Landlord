@@ -12,6 +12,7 @@ import Reviews from "../Pages/Reviews/Reviews";
 import LandlordSinglePage from "../Pages/SinglePage/LandlordSinglePage/LandlordSinglePage";
 import LocationSinglePage from "../Pages/SinglePage/LocationSinglePage/LocationSinglePage";
 
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -54,13 +55,14 @@ const routes = createBrowserRouter([
         element: <SubmitForm />,
       },
       {
-        path: "/single/landlord/:landlord",
+        path: "/single/landlord/:id",
         element: <LandlordSinglePage />,
       },
       {
-        path: "/single/location/:location",
+        path: "/single/location/:id",
         element: <LocationSinglePage />,
       },
+      
     ],
   },
 ]);

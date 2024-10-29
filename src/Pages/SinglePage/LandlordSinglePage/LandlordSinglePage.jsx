@@ -1,35 +1,32 @@
 /* eslint-disable no-unused-vars */
 import { Rating } from "@smastrom/react-rating";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 const LandlordSinglePage = () => {
-  const [review, setReview] = useState({
-    landlordName: "Md Biplob hossain Md Biplob hossain",
-    country: "Australia",
-    city: "Dhaka",
-    state: "rajshahi",
-    zipCode: "112",
-    rent: "1800",
-    repairRating: "4",
-    healthRating: "5",
-    rentalRating: "3",
-    privacyRating: "2",
-    respectRating: "5",
-    review: "this is a review",
-    date: "1/2/1010",
-  });
+  const [review, setReview] = useState({});
   const [report, setReport] = useState({
     reason: "Address is in the review",
     otherReason: "",
   });
   const total = 5;
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/v1/review/single/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setReview(data?.data);
+      });
+  }, [id]);
   return (
     <div>
       {/* upper section*/}
       <section className="bg-[#f9fafb] w-[90%] mx-auto mt-[40px] rounded-[15px]">
         <div className="text-center pt-[70px]">
-          <h1 className="text-[36px] font-bold">Cda Co Living</h1>
-          <p>Read 1 reviews and rental experiences for Cda Co Living</p>
+          <h1 className="text-[36px] font-bold">{review?.landlordName}</h1>
+          <p>
+            Read 1 reviews and rental experiences for {review?.landlordName}
+          </p>
         </div>
 
         {/* review section */}
@@ -39,7 +36,7 @@ const LandlordSinglePage = () => {
               <h1>Overall</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.totalRating}
                 readOnly={true}
               />
             </div>
@@ -47,7 +44,7 @@ const LandlordSinglePage = () => {
               <h1>Stability</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.rentalRating}
                 readOnly={true}
               />
             </div>
@@ -55,7 +52,7 @@ const LandlordSinglePage = () => {
               <h1>Respect</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.respectRating}
                 readOnly={true}
               />
             </div>
@@ -63,7 +60,7 @@ const LandlordSinglePage = () => {
               <h1>Health</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.healthRating}
                 readOnly={true}
               />
             </div>
@@ -71,7 +68,7 @@ const LandlordSinglePage = () => {
               <h1>Privacy</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.privacyRating}
                 readOnly={true}
               />
             </div>
@@ -79,7 +76,7 @@ const LandlordSinglePage = () => {
               <h1>Repair</h1>
               <Rating
                 style={{ maxWidth: 80, color: "yellow" }}
-                value={5}
+                value={review?.repairRating}
                 readOnly={true}
               />
             </div>
@@ -109,7 +106,7 @@ const LandlordSinglePage = () => {
           <hr />
           <div>
             <div className="collapse collapse-plus">
-              <input type="checkbox"/> {/* Changed from radio to checkbox */}
+              <input type="checkbox" /> {/* Changed from radio to checkbox */}
               <div className="collapse-title text-xl font-medium">
                 Tenants guide to Reviews
               </div>
@@ -174,8 +171,11 @@ const LandlordSinglePage = () => {
                 />
               </div>
               <Link
-                to={`/single/location/location`}
+                to={`/single/location/${review?._id}`}
                 className="hover:underline cursor-pointer"
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                }}
               >
                 <div className="flex mx-2 items-center justify-start mt-4 text-[#6B7280]">
                   <h1>
@@ -343,7 +343,6 @@ const LandlordSinglePage = () => {
             </div>
           </div>
         </div>
-        
       </section>
     </div>
   );

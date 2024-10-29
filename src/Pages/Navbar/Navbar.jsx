@@ -15,12 +15,12 @@ const Navbar = () => {
     <nav className="bg-white shadow-md py-3">
       {" "}
       {/* Slightly reduced padding */}
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container px-3 md:mx-auto flex justify-between items-center">
         {/* Left Side: Logo and Brand */}
         <div className="flex items-center">
           {/* Navbar Icon */}
-          <Link to={"/"} className="text-xl font-bold text-black">
-            Rate The Landlord
+          <Link to={"/"} className="text-[16px] md:text-xl font-bold text-black">
+          RottenHOAs—HOA Reviews & Reputation
           </Link>
         </div>
 
@@ -64,7 +64,7 @@ const Navbar = () => {
 
           {/* Submit Button */}
           <Link to={"/submit"}>
-            <button className="bg-teal-500 text-white px-4 py-2 rounded-lg text-base font-semibold hover:bg-teal-600">
+            <button className="bg-[#d6cc32] text-white px-4 py-2 rounded-lg text-base font-semibold hover:bg-[#c5bb2e] hidden md:block">
               Submit a Review
             </button>
           </Link>

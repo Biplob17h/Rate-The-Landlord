@@ -6,15 +6,21 @@ const Community = () => {
     <section className="flex flex-col justify-center items-center bg-white py-12">
       {/* Community container */}
       <div className="shadow-lg p-10 py-20 w-[95%] max-w-7xl mt-5 bg-[#f9fafb] rounded-[15px]">
-        <h1 className="text-center text-2xl font-semibold mb-8">
-          Keep your community informed.
+        <h1 className="text-center text-2xl font-semibold">
+          Search for HOA reviews
         </h1>
-        <div className="flex justify-between items-center">
+        <h1 className="text-center text-[14px] font-semibold mb-8">
+          Enter your community’s address to see existing HOA reviews or leave a
+          new one
+        </h1>
+        {/* Responsive icon sections */}
+        <div className="flex flex-col sm:flex-row justify-between items-center space-y-8 sm:space-y-0 sm:space-x-8">
+          
           {/* First icon section */}
-          <div className="text-center">
+          <div className="text-center flex-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-16 h-16 mx-auto text-teal-600 mb-4"
+              className="w-16 h-16 mx-auto text-[#ddd558] mb-4"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -32,12 +38,12 @@ const Community = () => {
           </div>
 
           {/* Second icon section */}
-          <div className="text-center">
+          <div className="text-center flex-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-16 h-16 mx-auto text-teal-600 mb-4"
+              className="w-16 h-16 mx-auto text-[#ddd558] mb-4"
             >
               <path
                 fillRule="evenodd"
@@ -53,12 +59,12 @@ const Community = () => {
           </div>
 
           {/* Third icon section */}
-          <div className="text-center">
+          <div className="text-center flex-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-16 h-16 mx-auto text-teal-600 mb-4"
+              className="w-16 h-16 mx-auto text-[#ddd558] mb-4"
             >
               <path
                 fillRule="evenodd"
@@ -71,6 +77,7 @@ const Community = () => {
               Empower others to make decisions about housing.
             </p>
           </div>
+
         </div>
       </div>
     </section>

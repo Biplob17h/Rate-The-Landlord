@@ -175,7 +175,7 @@ const Resources = () => {
             <div className="flex justify-between">
               <button
                 onClick={updateFilters}
-                className="bg-teal-500 text-white px-4 py-2 rounded-md"
+                className="bg-[#d6cc32] text-white px-4 py-2 rounded-md"
               >
                 Update Filters
               </button>
@@ -192,7 +192,7 @@ const Resources = () => {
         <section className="w-9/12 border ">
           <div className="grid grid-cols-3 mx-5 my-5 gap-5">
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-teal-500">
+            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -217,7 +217,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-teal-500">
+            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -242,7 +242,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-teal-500">
+            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -267,7 +267,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-teal-500">
+            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>

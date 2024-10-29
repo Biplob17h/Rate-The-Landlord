@@ -34,12 +34,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 0
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“sounds like a great initiative, count me in!”</p>
-          <h1 className={`${highlightedCardIndex === 0 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 0 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Reddit User
           </h1>
         </div>
@@ -48,12 +48,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 1
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“I consider your work heroic - thank you for providing a site that we can finally rate landlords!”</p>
-          <h1 className={`${highlightedCardIndex === 1 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 1 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Tenant Email
           </h1>
         </div>
@@ -62,12 +62,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 2
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“This is a much needed service. I&rsquo;m really hoping you&rsquo;ll grow to be a global service”</p>
-          <h1 className={`${highlightedCardIndex === 2 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 2 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Instagram User
           </h1>
         </div>
@@ -76,12 +76,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 3
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“I love this idea. I&rsquo;ve been saying for a long time that there should be a way for renters to vet landlords the same way landlords can do background checks on renters.”</p>
-          <h1 className={`${highlightedCardIndex === 3 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 3 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Reddit User
           </h1>
         </div>
@@ -90,12 +90,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 4
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“Good. As a landlord myself I&rsquo;d like to see bad landlords held accountable. They give those of us trying to provide a good service a bad name.”</p>
-          <h1 className={`${highlightedCardIndex === 4 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 4 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Twitter Landlord
           </h1>
         </div>
@@ -104,12 +104,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 5
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“So I’m a landlord and love this page. If you&rsquo;re a landlord and have a problem with this site, you are literally the problem. It&rsquo;s incredibly fucking easy to be a good landlord.”</p>
-          <h1 className={`${highlightedCardIndex === 5 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 5 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Instagram Landlord
           </h1>
         </div>
@@ -118,12 +118,12 @@ const Cards = () => {
         <div
           className={`${
             highlightedCardIndex === 6
-              ? "bg-teal-600 text-white transform scale-105 transition-all duration-1000 ease-in-out"
+              ? "bg-[#faf9e8] text-black transform scale-105 transition-all duration-1000 ease-in-out"
               : "bg-[#f9fafb] text-gray-700 transition-all duration-1000 ease-in-out"
           } p-6 rounded-lg shadow-lg`}
         >
           <p className="text-lg">“Been dreaming of this years! Keen for it to become GLOBAL. 🏆”</p>
-          <h1 className={`${highlightedCardIndex === 6 ? "text-white" : "text-gray-900"} mt-4 font-semibold`}>
+          <h1 className={`${highlightedCardIndex === 6 ? "text-black" : "text-gray-900"} mt-4 font-semibold`}>
             Reddit User
           </h1>
         </div>

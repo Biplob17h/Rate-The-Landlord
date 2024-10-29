@@ -3,15 +3,25 @@
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { getCurrentDateString } from "../../../components/GetTodaysDate";
 
 const SubmitShowFrom = ({ review, setReview, step, setStep, totalRating }) => {
+  // get all data from props
   const {
+    state,
+    city,
+    zipCode,
+    country,
     repairRating,
     healthRating,
     rentalRating,
     privacyRating,
     respectRating,
   } = review;
+
+  // count total rating
   const total = totalRating(
     repairRating,
     healthRating,
@@ -19,11 +29,44 @@ const SubmitShowFrom = ({ review, setReview, step, setStep, totalRating }) => {
     privacyRating,
     respectRating
   );
+
+  // location
+  const location = city + " " + state + " " + country + " " + zipCode;
+
+  // check if agree with trams
   const [isChecked, setIsChecked] = useState({
     first: false,
     second: false,
     third: false,
   });
+
+  // navigate
+  const navigate = useNavigate();
+
+  // Get todays date
+  const date = getCurrentDateString();
+
+  const handleReviewSubmit = () => {
+    fetch(`http://localhost:5000/api/v1/review/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...review, totalRating: total, location, date }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data?.status === "success") {
+          console.log(data);
+          toast.success("Review successful");
+          navigate("/reviews");
+          window.scrollTo(0, 0);
+        } else {
+          toast.error("Failed to submit review");
+          console.log(data);
+        }
+      });
+  };
   return (
     <div className="text-start px-[5%]">
       {/******* Landlord Section ******/}
@@ -306,6 +349,9 @@ const SubmitShowFrom = ({ review, setReview, step, setStep, totalRating }) => {
             {/* Submit Review Button */}
             <div className="flex justify-center my-8">
               <button
+                onClick={() => {
+                  handleReviewSubmit();
+                }}
                 disabled={
                   !isChecked?.first || !isChecked?.second || !isChecked?.third
                 }
@@ -318,7 +364,7 @@ const SubmitShowFrom = ({ review, setReview, step, setStep, totalRating }) => {
                 Submit Review
               </button>
             </div>
-              <div className={`h-[2px] w-full bg-[#0d9488] mb-5`}></div>
+            <div className={`h-[2px] w-full bg-[#0d9488] mb-5`}></div>
           </section>
         </div>
       )}

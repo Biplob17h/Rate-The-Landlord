@@ -24,7 +24,10 @@ const SubmitInputForm = ({ review, setReview, step, setStep }) => {
             type="text"
             className="w-full border p-2 mt-1"
             onChange={(e) => {
-              setReview({ ...review, landlordName: e.target.value });
+              setReview({
+                ...review,
+                landlordName: e.target.value.toUpperCase(),
+              });
             }}
           />
         </div>
@@ -539,9 +542,7 @@ const SubmitInputForm = ({ review, setReview, step, setStep }) => {
       {/* ******** Written Review section  *********/}
       <section className={`${step === 4 ? "" : "hidden"} text-[#4B5563]`}>
         {/* Written Review Text */}
-        <h1 className="font-bold text-[16px] text-black">
-          Written Review
-        </h1>
+        <h1 className="font-bold text-[16px] text-black">Written Review</h1>
         <p className="text-[14px] mt-3">Please follow our moderation policy:</p>
         <p className="text-[14px] mt-3">
           1. Keep reviews civil and avoid including personal information such as
@@ -557,7 +558,9 @@ const SubmitInputForm = ({ review, setReview, step, setStep }) => {
         </p>
         {/* Written Review Input */}
         <div>
-          <p className="text-[14px] mt-3">Written Review  (max 2000 characters)</p>
+          <p className="text-[14px] mt-3">
+            Written Review (max 2000 characters)
+          </p>
           <textarea
             onChange={(e) => {
               setReview({ ...review, review: e.target.value });
