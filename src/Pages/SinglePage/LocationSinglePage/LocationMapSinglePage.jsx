@@ -1,9 +1,16 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Rating } from "@smastrom/react-rating";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
-const ReviewSinglePage = ({ review, report, setReport }) => {
+const LocationMapSinglePage = ({ review }) => {
+  // set report
+  const [report, setReport] = useState({
+    reason: "Address is in the review",
+    otherReason: "",
+  });
   const handleReportSubmit = () => {
     const reportData = {
       review: review?._id,
@@ -24,27 +31,24 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
       });
   };
   return (
-    <div className="m-5 rounded-2xl">
+    <div key={review?._id} className="m-5 rounded-2xl">
       <div className="mb-5 mx-auto min-h-[350px] shadow-lg border rounded-2xl flex">
         <div className="w-3/12 bg-gray-50 min-h-[350px]  pt-4 flex flex-col items-center justify-start rounded-2xl">
           <Link
-            to={`/single/landlord/${review?._id}`}
+            to={`/single/landlord/${review?.landlordName}`}
             className=" w-full text-center px-2 hover:underline"
           >
             <h1 className="font-[500] text-[19px]">{review?.landlordName}</h1>
             <p className="text-center">Read All Reviews</p>
           </Link>
-          <div className="mt-2">
+          <div>
             <Rating
               style={{ maxWidth: 80, color: "yellow" }}
               value={review?.totalRating}
               readOnly={true}
             />
           </div>
-          <Link
-            to={`/single/location/${review?._id}`}
-            className=" cursor-pointer hover:underline"
-          >
+          <div>
             <div className="flex mx-2 items-center justify-start mt-4 text-[#6B7280]">
               <h1>
                 {review?.city}
@@ -59,7 +63,7 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
               </h1>
               <h1 className="ml-2">{review?.zipCode}</h1>
             </div>
-          </Link>
+          </div>
 
           <div>
             <h1 className="mt-3 text-[#6B7280]">{review?.date}</h1>
@@ -155,6 +159,64 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
               Close
             </label>
           </div>
+          <div className="modal" role="dialog">
+            <div className="modal-box text-center rounded-md px-10 w-[380px] ">
+              <div>
+                <h1 className="text-[19px] font-bold mt-5">Report Review</h1>
+                <p className="text-start text-[14px]">
+                  Think this review should be removed or altered? Select a
+                  reason
+                </p>
+              </div>
+              <select
+                onChange={(e) => {
+                  setReport({ ...report, reason: e.target.value });
+                }}
+                className="input input-bordered text-[14px] h-[40px] w-full mt-4"
+              >
+                <option disabled value="">
+                  Select a reason...{" "}
+                </option>
+                <option value="Address is in the review">
+                  Address is in the review{" "}
+                </option>
+                <option value="Fake review">Fake review </option>
+                <option value="review content inappropriate language">
+                  review content inappropriate language{" "}
+                </option>
+                <option value="review content sensitive information">
+                  review content sensitive information{" "}
+                </option>
+                <option value="others">Others</option>
+              </select>
+              <div className={`${report?.reason === "others" ? "" : "hidden"}`}>
+                <h1 className="mt-3 text-[13px] text-start">Reason</h1>
+                <textarea
+                  className="input input-bordered w-full mt-2 py-2 px-4 text-[13px] h-[100px]"
+                  name=""
+                  id=""
+                  placeholder="Write your reasoning here..."
+                ></textarea>
+                <p className="text-[13px] text-start -mt-[6px]">
+                  Limit of 250 Characters: 0/250
+                </p>
+              </div>
+              <div className="mt-4">
+                <button className="border-2 py-2 px-5 text-[13px] rounded-[8px]">
+                  Cancel
+                </button>
+                <label
+                  className="py-3 cursor-pointer px-5 text-[13px] ml-6 rounded-[8px] bg-teal-600 hover:bg-teal-700 text-white"
+                  htmlFor="my_modal_7"
+                >
+                  Submit
+                </label>
+              </div>
+            </div>
+            <label className="modal-backdrop" htmlFor="my_modal_7">
+              Close
+            </label>
+          </div>
         </div>
         <div className="w-3/12  min-h-[350px]  pt-4 flex flex-col items-start justify-start px-8">
           <div className="mt-2">
@@ -207,10 +269,6 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
               />
             </div>
           </div>
-          <div className="mt-4">
-            <h1 className="text-[16px]">Rent Amount: ${review?.rent}</h1>
-            <h1 className="text-[12px]">In local currency</h1>
-          </div>
         </div>
         <div className="w-6/12  min-h-[350px]  pt-4 flex flex-col items-start justify-start p-3">
           <h1 className="font-[500] text-[16px]">{`Written Review`}</h1>
@@ -221,4 +279,4 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
   );
 };
 
-export default ReviewSinglePage;
+export default LocationMapSinglePage;

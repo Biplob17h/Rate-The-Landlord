@@ -1,15 +1,36 @@
 /* eslint-disable no-unused-vars */
 import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 const LandlordSinglePage = () => {
   const [review, setReview] = useState({});
+  // state to store report
   const [report, setReport] = useState({
     reason: "Address is in the review",
-    otherReason: "",
+    report: "Address is in the review",
   });
-  const total = 5;
   const { id } = useParams();
+
+  const handleReportSubmit = () => {
+    const reportData = {
+      review: review?._id,
+      report: report.report,
+    };
+    fetch(`http://localhost:5000/api/v1/report/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reportData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.status === "success") {
+          toast.success("Report successfully submitted");
+        }
+      });
+  };
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/v1/review/single/${id}`)
@@ -166,7 +187,7 @@ const LandlordSinglePage = () => {
               <div>
                 <Rating
                   style={{ maxWidth: 110, color: "yellow" }}
-                  value={total}
+                  value={review?.totalRating}
                   readOnly={true}
                 />
               </div>
@@ -200,7 +221,7 @@ const LandlordSinglePage = () => {
               {/* Button to open  modal*/}
               <label
                 htmlFor="my_modal_7"
-                className="mt-2 cursor-pointer border px-6 py-3 rounded-lg shadow-lg"
+                className="mt-10 cursor-pointer border px-6  py-3 rounded-lg shadow-lg mb-10"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +242,7 @@ const LandlordSinglePage = () => {
               {/* Modal for report */}
               <input type="checkbox" id="my_modal_7" className="modal-toggle" />
               <div className="modal" role="dialog">
-                <div className="modal-box text-center rounded-md px-10 w-[380px]">
+                <div className="modal-box text-center rounded-md px-10 w-[380px] ">
                   <div>
                     <h1 className="text-[19px] font-bold mt-5">
                       Report Review
@@ -233,7 +254,10 @@ const LandlordSinglePage = () => {
                   </div>
                   <select
                     onChange={(e) => {
-                      setReport({ ...report, reason: e.target.value });
+                      setReport({
+                        reason: e.target.value,
+                        report: e.target.value,
+                      });
                     }}
                     className="input input-bordered text-[14px] h-[40px] w-full mt-4"
                   >
@@ -257,6 +281,9 @@ const LandlordSinglePage = () => {
                   >
                     <h1 className="mt-3 text-[13px] text-start">Reason</h1>
                     <textarea
+                      onChange={(e) => {
+                        setReport({ ...report, report: e.target.value });
+                      }}
                       className="input input-bordered w-full mt-2 py-2 px-4 text-[13px] h-[100px]"
                       name=""
                       id=""
@@ -267,12 +294,18 @@ const LandlordSinglePage = () => {
                     </p>
                   </div>
                   <div className="mt-4">
-                    <button className="border-2 py-2 px-5 text-[13px] rounded-[8px]">
+                    <label
+                      className="py-3 cursor-pointer px-5 text-[13px] ml-6 rounded-[8px] border"
+                      htmlFor="my_modal_7"
+                    >
                       Cancel
-                    </button>
+                    </label>
                     <label
                       className="py-3 cursor-pointer px-5 text-[13px] ml-6 rounded-[8px] bg-teal-600 hover:bg-teal-700 text-white"
                       htmlFor="my_modal_7"
+                      onClick={() => {
+                        handleReportSubmit();
+                      }}
                     >
                       Submit
                     </label>

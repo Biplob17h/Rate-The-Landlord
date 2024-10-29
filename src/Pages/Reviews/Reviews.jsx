@@ -19,10 +19,8 @@ const Reviews = () => {
   // state to store report
   const [report, setReport] = useState({
     reason: "Address is in the review",
-    otherReason: "",
+    report: "Address is in the review",
   });
-
- 
 
   // state to store review
   const [reviews, setReviews] = useState([]);
@@ -64,6 +62,7 @@ const Reviews = () => {
     setLoading(false);
   };
 
+
   // All Use Effect
   useEffect(() => {
     setLoading(true);
@@ -74,7 +73,7 @@ const Reviews = () => {
       .then((data) => setReviews(data?.data));
     setLoading(false);
   }, [refresh]);
-  console.log(reviews);
+  
   return (
     <div>
       {/******** Upper text section *********/}
