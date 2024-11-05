@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import img from "../../../assets/house.jfif";
+import img from "../../../assets/house.jpg";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
