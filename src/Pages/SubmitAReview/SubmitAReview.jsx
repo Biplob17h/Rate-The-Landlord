@@ -44,8 +44,8 @@ const SubmitAReview = () => {
           </p>
         </div>
         {/* start submit review button */}
-        <div className="mt-[35px] pb-[20px]">
-          <Link to={'/submit-form'} className="inline-flex justify-center rounded-md border border-transparent text-white bg-teal-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 bg-teal-600, hover:bg-teal-700 px-8 py-4 text-3xl cursor-pointer">
+        <div  className="mt-[35px] pb-[20px]">
+          <Link onClick={()=>{window.scrollTo(0,0)}} to={'/submit-form'} className="inline-flex justify-center rounded-md border border-transparent text-white bg-teal-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 bg-teal-600, hover:bg-teal-700 px-8 py-4 text-3xl cursor-pointer">
             Start a Review
           </Link>
         </div>

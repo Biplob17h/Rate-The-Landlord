@@ -79,9 +79,9 @@ const Reviews = () => {
       {/******** Upper text section *********/}
       <section>
         <div className="w-1/2 m-20">
-          <h1 className="text-3xl font-[800]">Find your landlord</h1>
+          <h1 className="text-3xl font-[800]">Find your Community</h1>
           <p className="mt-3 text-[#374151] text-[15px]">
-            Search our database to find information about your landlord. If you
+            Search our database to find information about your Community. If you
             don&rsquo;t see a result, be the first to add a review!
           </p>
         </div>
@@ -93,9 +93,9 @@ const Reviews = () => {
       </section>
 
       {/******  Review Page Main design ******/}
-      <div className="min-h-screen flex mx-10 mt-8">
+      <div className="min-h-screen block md:flex mx-3 md:mx-10 mt-8">
         {/* Left side section */}
-        <section className="w-3/12 min-h-screen">
+        <section className="w-full md:w-3/12 min-h-screen">
           <div className="p-5 bg-gray-100 min-h-screen">
             <div className="mb-4">
               <input
@@ -194,8 +194,10 @@ const Reviews = () => {
             </div>
           </div>
         </section>
+
+
         {/* Right side section */}
-        <section className="w-9/12 border">
+        <section className="w-full md:w-9/12 border-0 md:border  mt-5 md:mt-0 rounded-2xl md:rounded-none">
           {loading ? (
             <div className="flex justify-center items-center min-h-screen">
               <ClipLoader color="#d6cc32" size={110} />
