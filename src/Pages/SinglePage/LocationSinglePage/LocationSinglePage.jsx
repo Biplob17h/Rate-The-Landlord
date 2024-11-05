@@ -53,7 +53,7 @@ const LocationSinglePage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/v1/review/single/location/${id}`)
+    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/review/single/location/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data?.data);

@@ -16,7 +16,7 @@ const LocationMapSinglePage = ({ review }) => {
       review: review?._id,
       report: report.report,
     };
-    fetch(`http://localhost:5000/api/v1/report/create`, {
+    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

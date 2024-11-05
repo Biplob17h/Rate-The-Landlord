@@ -13,7 +13,7 @@ const SubmitInputForm = ({ review, setReview, step, setStep }) => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${landlordName}`
+      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlordName?landlordName=${landlordName}`
     )
       .then((response) => response.json())
       .then((data) => {
