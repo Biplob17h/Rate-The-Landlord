@@ -7,14 +7,14 @@ const Banner = () => {
   const [search, setSearch] = useState("");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(search);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/v1/review/all/location?location=${search}`)
+    fetch(
+      `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${search}`
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setReviews(data?.data);
         setLoading(false);
       });
@@ -152,14 +152,14 @@ const Banner = () => {
               <div>
                 {reviews?.map((review) => (
                   <Link
-                    to={`/single/location/${review?._id}`}
+                    to={`/single/landlord/${review?._id}`}
                     key={review?._id}
                     className="w-full h-[50px]  bg-gray-50 hover:bg-[#d6cc32] flex flex-col justify-center pl-[2%] cursor-pointer rounded-md"
                     onClick={() => {
                       window.scrollTo(0, 0);
                     }}
                   >
-                    <h1 className="text-[17px]">{review?.location}</h1>
+                    <h1 className="text-[17px]">{review?.landlordName}</h1>
                   </Link>
                 ))}
               </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Rating } from "@smastrom/react-rating";
 import React, { useEffect, useState } from "react";
@@ -40,7 +41,6 @@ const Reviews = () => {
 
   // Handle clearing the filters
   const clearFilters = () => {
-    console.log("clicked");
     setSearch({
       landlord: "",
       country: "",

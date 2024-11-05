@@ -1,36 +1,95 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 const SubmitInputForm = ({ review, setReview, step, setStep }) => {
+  const [landlordName, setLandlordName] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showLandlord, setShowLandlord] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${landlordName}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setReviews(data?.data);
+        setLoading(false);
+      });
+  }, [landlordName]);
   return (
     <div className="text-start px-[5%]">
       {/********** Landlord section **********/}
       <section className={`${step === 1 ? "" : "hidden"} `}>
         <h1 className="font-bold text-[16px] mt-10">Landlord</h1>
         <p className="text-[14px] mt-3">
-          Enter the name of your landlord or property management company as it
+          Enter the name of your Community or property management company as it
           appears on your lease. Double-check the spelling before you submit so
-          your review can be matched with other reviews for this landlord. Do
+          your review can be matched with other reviews for this community. Do
           not include the full address, all addresses will be removed.
         </p>
 
         {/* Landlord Input */}
-        <div>
-          <p className="text-[14px] mt-3">
-            Landlord Name (or Property Management Company) - No Addresses
-          </p>
+        <div className="">
+          <p className="text-[14px] mt-3">Community Name</p>
           <input
-            placeholder="Landlord Name (or Property Management Company) - No Addresses"
+            placeholder="Community Name"
+            value={landlordName}
             type="text"
-            className="w-full border p-2 mt-1"
+            className="w-full border p-2 mt-1 relative"
             onChange={(e) => {
               setReview({
                 ...review,
                 landlordName: e.target.value.toUpperCase(),
               });
+              setLandlordName(e.target.value);
+              setShowLandlord(true);
             }}
           />
         </div>
+        <div
+          className={`h-[200px] w-[60.5%] absolute rounded-md border top-[426px] left-[5%] bg-white ${
+            landlordName === "" ? "hidden" : ""
+          }`}
+        >
+          <div className="w-full h-[50px] bg-gray-50 hover:bg-[#d6cc32] flex items-center pl-[2%] cursor-pointer rounded-md">
+            <h1 className="text-[17px]">Searching for {landlordName}</h1>
+          </div>
+          {loading ? (
+            <div className="flex justify-center items-center h-full">
+              <span>Loading...</span>
+            </div>
+          ) : (
+            <div>
+              {/* Conditional rendering based on review length */}
+              {review && review.length && showLandlord > 0 ? (
+                <div>
+                  <h1>Welcome</h1>
+                </div>
+              ) : (
+                <div >
+                  {reviews?.map((review) => (
+                    <div
+                      key={review?._id}
+                      className="w-full h-[50px] bg-gray-50 hover:bg-[#d6cc32] flex items-center pl-[2%] cursor-pointer rounded-md"
+                      onClick={() => {
+                        setLandlordName(review?.landlordName);
+                        setShowLandlord(false);
+                      }}
+                    >
+                      <h1 className="text-[17px]">{review?.landlordName}</h1>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
         {/* Continue Button */}
         <div className="flex justify-end my-5">
           <button

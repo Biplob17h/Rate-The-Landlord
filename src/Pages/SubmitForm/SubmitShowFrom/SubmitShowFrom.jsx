@@ -57,13 +57,11 @@ const SubmitShowFrom = ({ review, setReview, step, setStep, totalRating }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data?.status === "success") {
-          console.log(data);
           toast.success("Review successful");
           navigate("/reviews");
           window.scrollTo(0, 0);
         } else {
           toast.error("Failed to submit review");
-          console.log(data);
         }
       });
   };

@@ -13,14 +13,14 @@ const Resources = () => {
     zipCode: "",
   });
 
-  console.log(search);
+  
 
   const [report, setReport] = useState({
     reason: "Address is in the review",
     otherReason: "",
   });
 
-  console.log(report);
+  
 
   const [review, setReview] = useState({
     landlordName: "Md Biplob hossain",
@@ -63,7 +63,7 @@ const Resources = () => {
   // Handle updating the filters
   const updateFilters = () => {
     // You can add functionality here to update the list of reviews
-    console.log("Filters updated with: ", search);
+    
   };
   return (
     <div className="">

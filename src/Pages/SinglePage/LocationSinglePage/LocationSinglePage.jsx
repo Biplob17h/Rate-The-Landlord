@@ -48,7 +48,7 @@ const LocationSinglePage = () => {
   // Handle updating the filters
   const updateFilters = () => {
     // You can add functionality here to update the list of reviews
-    console.log("Filters updated with: ", search);
+    
   };
 
   useEffect(() => {
