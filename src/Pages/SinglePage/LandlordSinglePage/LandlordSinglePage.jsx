@@ -3,6 +3,7 @@ import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
+import countTotalReview from "../../../components/CountTotal";
 const LandlordSinglePage = () => {
   // state to store landlord details
   const [review, setReview] = useState({});
@@ -24,13 +25,16 @@ const LandlordSinglePage = () => {
       review: review?._id,
       report: report.report,
     };
-    fetch(`http://localhost:5000/api/v1/report/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reportData),
-    })
+    fetch(
+      `http://localhost:5000/api/v1/report/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reportData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data?.status === "success") {
@@ -42,7 +46,9 @@ const LandlordSinglePage = () => {
   // All UseEffects
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/v1/review/single/${id}`)
+    fetch(
+      `http://localhost:5000/api/v1/review/single/${id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setReview(data?.data);
@@ -57,6 +63,9 @@ const LandlordSinglePage = () => {
           });
       });
   }, [id]);
+
+  const total = countTotalReview(reviews, reviews?.length || 0);
+  console.log(total)
 
   return (
     <div>
@@ -75,7 +84,7 @@ const LandlordSinglePage = () => {
           <div className="text-white flex flex-col justify-center items-center rounded-l-[8px] mt-3">
             <Rating
               style={{ maxWidth: 280, color: "yellow" }}
-              value={review?.totalRating}
+              value={total}
               readOnly={true}
             />
           </div>
@@ -169,7 +178,7 @@ const LandlordSinglePage = () => {
                     <div>
                       <Rating
                         style={{ maxWidth: 110, color: "yellow" }}
-                        value={review?.totalRating}
+                        value={review?.rating}
                         readOnly={true}
                       />
                     </div>
@@ -294,11 +303,12 @@ const LandlordSinglePage = () => {
                       <span className="text-[13px]">{review.street}</span>
                     </div>
 
-
                     {/* district */}
-                    <div className={review?.district === "" ? "hidden" : "mt-1 "}>
+                    <div
+                      className={review?.district === "" ? "hidden" : "mt-1 "}
+                    >
                       <span className="font-semibold text-[15px]">
-                      District:{" "}
+                        District:{" "}
                       </span>
                       <span className="text-[13px]">{review.district}</span>
                     </div>
