@@ -9,7 +9,7 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
       review: review?._id,
       report: report.report,
     };
-    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
+    fetch(`http://localhost:5000/api/v1/report/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,28 +147,43 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
 
           {/* mid section */}
           <section className="w-3/12  min-h-[350px]  pt-5 flex flex-col items-start justify-start px-5">
-            <div>
+            {/* Street */}
+            <div className={review?.street === "" ? "hidden" : "mt-2 "}>
               <span className="font-semibold text-[16px]">Street: </span>
               <span className="text-[14px]">{review.street}</span>
             </div>
-            <div className="mt-2">
+
+            {/* District */}
+            <div className={review?.district === "" ? "hidden" : "mt-2 "}>
+              <span className="font-semibold text-[16px]">District: </span>
+              <span className="text-[14px]">{review.district}</span>
+            </div>
+
+            {/* City */}
+            <div className={review?.city === "" ? "hidden" : "mt-2 "}>
               <span className="font-semibold text-[16px]">City: </span>
               <span className="text-[14px]">{review.city}</span>
             </div>
-            <div className="mt-2">
+
+            {/* State */}
+            <div className={review?.state === "" ? "hidden" : "mt-2 "}>
               <span className="font-semibold text-[16px]">State: </span>
               <span className="text-[14px]">{review.state}</span>
             </div>
-            <div className="mt-2">
+
+            {/* Country */}
+            <div className={review?.country === "" ? "hidden" : "mt-2 "}>
               <span className="font-semibold text-[16px]">Country: </span>
               <span className="text-[14px]">{review.country}</span>
             </div>
-            <div className="mt-2">
+
+            {/* Zip Code */}
+            <div className={review?.zipCode === "" ? "hidden" : "mt-2 "}>
               <span className="font-semibold text-[16px]">Zip Code: </span>
               <span className="text-[14px]">{review.zipCode}</span>
             </div>
 
-            <Link className="mt-5 hover:underline">Read All Reviews</Link>
+            <Link onClick={()=>{window.scrollTo(0,0)}} to={`/single/location/${review._id}`} className="mt-5 hover:underline">Read All Reviews</Link>
           </section>
           <div className="w-6/12  min-h-[350px]  pt-4 flex flex-col items-start justify-start p-3">
             <h1 className="font-[500] text-[16px]">{`Written Review`}</h1>
@@ -184,7 +199,7 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
           <div className="w-full md:w-3/12 bg-gray-50 pt-4 flex flex-col items-center justify-start rounded-2xl pb-2">
             <Link
               to={`/single/landlord/${review?._id}`}
-              className="w-full text-center px-2 hover:underline"
+              className="w-full text-center px-2 underline"
             >
               <h1 className="font-semibold text-lg md:text-[19px]">
                 {review?.landlordName}
@@ -296,37 +311,52 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
 
           {/* mid section */}
           <section className="w-full md:w-3/12 pt-5 flex flex-col items-start justify-start px-5">
-            <div>
+            {/* Street */}
+            <div className={review?.street === "" ? "hidden" : "mt-1 "}>
               <span className="font-semibold">Street:</span>{" "}
-              <span className="text-sm">{review.street}</span>
+              <span className="text-sm">{review?.street}</span>
             </div>
-            <div className="mt-2">
+
+            {/* District */}
+            <div className={review?.district === "" ? "hidden" : "mt-1 "}>
+              <span className="font-semibold">District:</span>{" "}
+              <span className="text-sm">{review?.district}</span>
+            </div>
+
+            {/* City */}
+            <div className={review?.city === "" ? "hidden" : "mt-1 "}>
               <span className="font-semibold">City:</span>{" "}
-              <span className="text-sm">{review.city}</span>
+              <span className="text-sm">{review?.city}</span>
             </div>
-            <div className="mt-2">
+
+            {/* State */}
+            <div className={review?.state === "" ? "hidden" : "mt-1 "}>
               <span className="font-semibold">State:</span>{" "}
               <span className="text-sm">{review.state}</span>
             </div>
-            <div className="mt-2">
+
+            {/* Country */}
+            <div className={review?.country === "" ? "hidden" : "mt-1 "}>
               <span className="font-semibold">Country:</span>{" "}
               <span className="text-sm">{review.country}</span>
             </div>
-            <div className="mt-2">
+
+            {/* Zip Code */}
+            <div className={review?.zipCode === "" ? "hidden" : "mt-1 "}>
               <span className="font-semibold">Zip Code:</span>{" "}
               <span className="text-sm">{review.zipCode}</span>
             </div>
-            <Link className="mt-5 hover:underline text-sm">
+            <Link onClick={()=>{window.scrollTo(0,0)}} to={`/single/location/${review._id}`} className="mt-2 underline text-sm">
               Read All Reviews
             </Link>
           </section>
 
           {/* Right section */}
-          <div className="w-full md:w-6/12 pt-4 flex flex-col items-start justify-start p-3">
+          <div className="w-full md:w-6/12 pt-10 flex flex-col items-start justify-start p-5 px-5">
             <h1 className="font-semibold text-sm md:text-[16px]">
               Written Review
             </h1>
-            <p className="mt-5 text-sm">{review?.review}</p>
+            <p className="mt-1 text-sm">{review?.review}</p>
           </div>
         </div>
       </div>

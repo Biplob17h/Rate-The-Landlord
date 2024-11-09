@@ -13,14 +13,10 @@ const Resources = () => {
     zipCode: "",
   });
 
-  
-
   const [report, setReport] = useState({
     reason: "Address is in the review",
     otherReason: "",
   });
-
-  
 
   const [review, setReview] = useState({
     landlordName: "Md Biplob hossain",
@@ -63,7 +59,6 @@ const Resources = () => {
   // Handle updating the filters
   const updateFilters = () => {
     // You can add functionality here to update the list of reviews
-    
   };
   return (
     <div className="">
@@ -86,12 +81,13 @@ const Resources = () => {
           your state/province/region or territory
         </p>
       </section>
+
       {/************ Resources page main section ************/}
-      <div className="min-h-screen flex mx-10 mt-8">
+      <div className="block min-h-screen mx-10 mt-8 md:flex">
         {/* Left side section */}
-        <section className="w-3/12 min-h-screen ">
-          <div className="p-5 bg-gray-100 min-h-screen h-full">
-            <div className="mb-4">
+        <section className="w-full md:w-3/12 md:min-h-screen ">
+          <div className="h-full p-5 mb-5 bg-gray-100 md:min-h-screen md:mb-0">
+            <div className="mb-2 md:mb-4">
               <input
                 type="text"
                 name="resources"
@@ -110,8 +106,6 @@ const Resources = () => {
                 className="w-full p-2 border border-gray-300 rounded-md"
               >
                 <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="highest">Highest</option>
                 <option value="lowest">Lowest</option>
                 <option value="a to z">Name A to Z</option>
                 <option value="z to a">Name Z to A</option>
@@ -146,7 +140,7 @@ const Resources = () => {
                 value={search.state}
                 onChange={handleInputChange}
                 placeholder="Search State / Province"
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md "
               />
             </div>
 
@@ -181,7 +175,7 @@ const Resources = () => {
               </button>
               <button
                 onClick={clearFilters}
-                className="bg-gray-400 text-white px-4 py-2 rounded-md"
+                className="px-4 py-2 text-white bg-gray-400 rounded-md"
               >
                 Clear Filters
               </button>
@@ -189,10 +183,10 @@ const Resources = () => {
           </div>
         </section>
         {/* Right side section */}
-        <section className="w-9/12 border ">
-          <div className="grid grid-cols-3 mx-5 my-5 gap-5">
+        <section className="w-full md:w-9/12 md:border">
+          <div className="grid grid-cols-1 md:grid-cols-3 md:mx-5 md:my-5 md:gap-5">
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
+            <div className="h-[560px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32] mb-5 md:mb-0">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -217,7 +211,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
+            <div className="h-[560px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32] mb-5 md:mb-0">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -242,7 +236,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
+            <div className="h-[560px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32] mb-5 md:mb-0">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>
@@ -267,7 +261,7 @@ const Resources = () => {
               </div>
             </div>
             {/* single div */}
-            <div className="h-[550px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32]">
+            <div className="h-[560px] w-full border rounded-md shadow-md cursor-pointer hover:border-[#d6cc32] mb-5 md:mb-0">
               <div>
                 <div className="flex justify-center items-center flex-col h-[100px] rounded-t-[6px] border bg-[#f9fafb]">
                   <h1 className="text-[#111827] text-[20px]">TENANTS REVOLT</h1>

@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <div className="text-black">
+    <div className="text-black overflow-scroll">
       <RouterProvider router={routes} />
       <Toaster position="top-center" reverseOrder={false} />
     </div>

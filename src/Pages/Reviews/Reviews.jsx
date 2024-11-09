@@ -25,6 +25,7 @@ const Reviews = () => {
 
   // state to store review
   const [reviews, setReviews] = useState([]);
+  console.log(reviews);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(1);
 
@@ -55,25 +56,24 @@ const Reviews = () => {
   const updateFilters = () => {
     setLoading(true);
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&country=${search?.country}&state=${search?.state}&city=${search?.city}&zip=${search?.zipCode}`
+      `http://localhost:5000/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&country=${search?.country}&state=${search?.state}&city=${search?.city}&zip=${search?.zipCode}`
     )
       .then((response) => response.json())
       .then((data) => setReviews(data?.data));
     setLoading(false);
   };
 
-
   // All Use Effect
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&country=${search?.country}&state=${search?.state}&city=${search?.city}&zip=${search?.zipCode}`
+      `http://localhost:5000/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&country=${search?.country}&state=${search?.state}&city=${search?.city}&zip=${search?.zipCode}`
     )
       .then((response) => response.json())
       .then((data) => setReviews(data?.data));
     setLoading(false);
   }, [refresh]);
-  
+
   return (
     <div>
       {/******** Upper text section *********/}
@@ -103,7 +103,7 @@ const Reviews = () => {
                 name="landlord"
                 value={search.landlord}
                 onChange={handleInputChange}
-                placeholder="Search Landlords"
+                placeholder="Search Community"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -116,34 +116,12 @@ const Reviews = () => {
                 className="w-full p-2 border border-gray-300 rounded-md"
               >
                 <option value="">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="highest">Highest</option>
                 <option value="lowest">Lowest</option>
                 <option value="a to z">Name A to Z</option>
                 <option value="z to a">Name Z to A</option>
               </select>
             </div>
-            <div className="mb-4">
-              <select
-                name="country"
-                value={search.country}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded-md"
-              >
-                <option value="" disabled>
-                  Country
-                </option>
-                <option value="">All</option>
-                <option value="Australia">Australia</option>
-                <option value="Canada">Canada</option>
-                <option value="Germany">Germany</option>
-                <option value="Ireland">Ireland </option>
-                <option value="New Zealand">New Zealand </option>
-                <option value="Norway">Norway </option>
-                <option value="United Kingdom">United Kingdom </option>
-                <option value="United States"> United States</option>
-              </select>
-            </div>
+            
 
             <div className="mb-4">
               <input
@@ -194,7 +172,6 @@ const Reviews = () => {
             </div>
           </div>
         </section>
-
 
         {/* Right side section */}
         <section className="w-full md:w-9/12 border-0 md:border  mt-5 md:mt-0 rounded-2xl md:rounded-none">
