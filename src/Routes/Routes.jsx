@@ -5,12 +5,12 @@ import Resources from "../Pages/Resources/Resources";
 import About from "../Pages/About/About/About";
 import SupportUs from "../Pages/SupportUs/SupportUs";
 import TermsAndConditions from "../Pages/TermsAndConditions/TermsAndConditions";
-import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import SubmitAReview from "../Pages/SubmitAReview/SubmitAReview";
 import SubmitForm from "../Pages/SubmitForm/SubmitForm";
 import Reviews from "../Pages/Reviews/Reviews";
 import LandlordSinglePage from "../Pages/SinglePage/LandlordSinglePage/LandlordSinglePage";
 import LocationSinglePage from "../Pages/SinglePage/LocationSinglePage/LocationSinglePage";
+import PrivacyPolicyPage from "../Pages/PrivacyPolicy/PrivacyPolicyPage";
 
 
 const routes = createBrowserRouter([
@@ -44,7 +44,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/privacy",
-        element: <PrivacyPolicy />,
+        element: <PrivacyPolicyPage />,
       },
       {
         path: "/submit",

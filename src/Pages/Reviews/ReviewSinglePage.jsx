@@ -9,7 +9,7 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
       review: review?._id,
       report: report.report,
     };
-    fetch(`http://localhost:5000/api/v1/report/create`, {
+    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,13 +28,27 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
       {/* FOR BIG DEVICE */}
       <div className="m-5 rounded-2xl hidden md:block">
         <div className="mb-5 mx-auto min-h-[350px] shadow-lg border rounded-2xl flex">
-          <div className="w-3/12 bg-gray-50 min-h-[350px]  pt-4 flex flex-col items-center justify-start rounded-2xl">
+          <div className="w-5/12 bg-gray-50 min-h-[350px] pt-6 flex flex-col items-center justify-start rounded-2xl">
             <Link
               to={`/single/landlord/${review?._id}`}
-              className=" w-full text-center px-2 hover:underline"
+              className="w-full text-center px-2 hover:underline"
             >
-              <h1 className="font-[500] text-[19px]">{review?.landlordName}</h1>
-              <p className="text-center">Read All Reviews</p>
+              <h1 className="font-semibold text-xl">{review?.landlordName}</h1>
+              <p className="text-center text-sm text-gray-600">
+                Read All Reviews
+              </p>
+            </Link>
+            <Link
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+              to={`/single/location/${review?._id}`}
+              className="w-full text-center px-2 hover:underline mt-10"
+            >
+              <h1 className=" text-[16px] mx-3">{review?.location}</h1>
+              <p className="text-center text-sm text-gray-600">
+                Read All Reviews
+              </p>
             </Link>
             <div className="mt-5">
               <Rating
@@ -45,13 +59,13 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
             </div>
 
             <div>
-              <h1 className="mt-3 text-[#6B7280]">{review?.date}</h1>
+              <h1 className="mt-3 text-sm text-gray-600">{review?.date}</h1>
             </div>
 
-            {/* Button to open  modal*/}
+            {/* Button to open modal */}
             <label
               htmlFor="my_modal_7"
-              className="mt-10 cursor-pointer border px-6  py-3 rounded-lg shadow-lg"
+              className="mt-10 cursor-pointer border px-6 py-3 rounded-lg shadow-lg hover:bg-gray-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,10 +86,10 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
             {/* Modal for report */}
             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
             <div className="modal" role="dialog">
-              <div className="modal-box text-center rounded-md px-10 w-[380px] ">
+              <div className="modal-box text-center rounded-md px-10 w-[380px]">
                 <div>
-                  <h1 className="text-[19px] font-bold mt-5">Report Review</h1>
-                  <p className="text-start text-[14px]">
+                  <h1 className="text-lg font-semibold mt-5">Report Review</h1>
+                  <p className="text-start text-sm text-gray-600">
                     Think this review should be removed or altered? Select a
                     reason
                   </p>
@@ -87,49 +101,47 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
                       report: e.target.value,
                     });
                   }}
-                  className="input input-bordered text-[14px] h-[40px] w-full mt-4"
+                  className="input input-bordered text-sm h-[40px] w-full mt-4"
                 >
                   <option disabled value="">
-                    Select a reason...{" "}
+                    Select a reason...
                   </option>
                   <option value="Address is in the review">
-                    Address is in the review{" "}
+                    Address is in the review
                   </option>
-                  <option value="Fake review">Fake review </option>
-                  <option value="review content inappropriate language">
-                    review content inappropriate language{" "}
+                  <option value="Fake review">Fake review</option>
+                  <option value="Review content inappropriate language">
+                    Review content inappropriate language
                   </option>
-                  <option value="review content sensitive information">
-                    review content sensitive information{" "}
+                  <option value="Review content sensitive information">
+                    Review content sensitive information
                   </option>
-                  <option value="others">Others</option>
+                  <option value="Others">Others</option>
                 </select>
                 <div
                   className={`${report?.reason === "others" ? "" : "hidden"}`}
                 >
-                  <h1 className="mt-3 text-[13px] text-start">Reason</h1>
+                  <h1 className="mt-3 text-sm text-start">Reason</h1>
                   <textarea
                     onChange={(e) => {
                       setReport({ ...report, report: e.target.value });
                     }}
-                    className="input input-bordered w-full mt-2 py-2 px-4 text-[13px] h-[100px]"
-                    name=""
-                    id=""
+                    className="input input-bordered w-full mt-2 py-2 px-4 text-sm h-[100px]"
                     placeholder="Write your reasoning here..."
                   ></textarea>
-                  <p className="text-[13px] text-start -mt-[6px]">
+                  <p className="text-xs text-start -mt-[6px]">
                     Limit of 250 Characters: 0/250
                   </p>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 flex justify-center">
                   <label
-                    className="py-3 cursor-pointer px-5 text-[13px] ml-6 rounded-[8px] border"
+                    className="py-3 cursor-pointer px-5 text-xs ml-6 rounded-[8px] border hover:bg-gray-200"
                     htmlFor="my_modal_7"
                   >
                     Cancel
                   </label>
                   <label
-                    className="py-3 cursor-pointer px-5 text-[13px] ml-6 rounded-[8px] bg-teal-600 hover:bg-teal-700 text-white"
+                    className="py-3 cursor-pointer px-5 text-xs ml-6 rounded-[8px] bg-teal-600 hover:bg-teal-700 text-white"
                     htmlFor="my_modal_7"
                     onClick={() => {
                       handleReportSubmit();
@@ -145,68 +157,40 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
             </div>
           </div>
 
-          {/* mid section */}
-          <section className="w-3/12  min-h-[350px]  pt-5 flex flex-col items-start justify-start px-5">
-            {/* Street */}
-            <div className={review?.street === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">Street: </span>
-              <span className="text-[14px]">{review.street}</span>
-            </div>
-
-            {/* District */}
-            <div className={review?.district === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">District: </span>
-              <span className="text-[14px]">{review.district}</span>
-            </div>
-
-            {/* City */}
-            <div className={review?.city === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">City: </span>
-              <span className="text-[14px]">{review.city}</span>
-            </div>
-
-            {/* State */}
-            <div className={review?.state === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">State: </span>
-              <span className="text-[14px]">{review.state}</span>
-            </div>
-
-            {/* Country */}
-            <div className={review?.country === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">Country: </span>
-              <span className="text-[14px]">{review.country}</span>
-            </div>
-
-            {/* Zip Code */}
-            <div className={review?.zipCode === "" ? "hidden" : "mt-2 "}>
-              <span className="font-semibold text-[16px]">Zip Code: </span>
-              <span className="text-[14px]">{review.zipCode}</span>
-            </div>
-
-            <Link onClick={()=>{window.scrollTo(0,0)}} to={`/single/location/${review._id}`} className="mt-5 hover:underline">Read All Reviews</Link>
-          </section>
-          <div className="w-6/12  min-h-[350px]  pt-4 flex flex-col items-start justify-start p-3">
-            <h1 className="font-[500] text-[16px]">{`Written Review`}</h1>
-            <p className="mt-5 text-[14px]">{review?.review}</p>
+          <div className="w-7/12 min-h-[350px] pt-4 flex flex-col items-start justify-start p-6">
+            <h1 className="font-semibold text-lg">Written Review</h1>
+            <p className="mt-5 text-sm text-gray-700">{review?.review}</p>
           </div>
         </div>
       </div>
 
       {/* **************************************************************** */}
       {/* FOR SMALL DEVICE */}
-      <div className="rounded-2xl block md:hidden mb-5">
-        <div className="mx-auto  shadow-lg border rounded-2xl flex flex-col md:flex-row">
-          <div className="w-full md:w-3/12 bg-gray-50 pt-4 flex flex-col items-center justify-start rounded-2xl pb-2">
+      <div className=" rounded-2xl block md:hidden">
+        <div className="mb-5 mx-auto min-h-[350px] shadow-lg border rounded-2xl">
+          <div className="w-full bg-gray-50 min-h-[350px] pt-6 flex flex-col items-center justify-start rounded-2xl">
             <Link
               to={`/single/landlord/${review?._id}`}
-              className="w-full text-center px-2 underline"
+              className="w-full text-center px-2 hover:underline"
             >
-              <h1 className="font-semibold text-lg md:text-[19px]">
-                {review?.landlordName}
-              </h1>
-              <p className="text-center text-sm">Read All Reviews</p>
+              <h1 className="font-semibold text-xl">{review?.landlordName}</h1>
+              <p className="text-center text-sm text-gray-600">
+                Read All Reviews
+              </p>
             </Link>
-            <div className="mt-3 md:mt-5">
+            <Link
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+              to={`/single/location/${review?._id}`}
+              className="w-full text-center px-2 hover:underline mt-10"
+            >
+              <h1 className=" text-[16px] mx-3">{review?.location}</h1>
+              <p className="text-center text-sm text-gray-600">
+                Read All Reviews
+              </p>
+            </Link>
+            <div className="mt-5">
               <Rating
                 style={{ maxWidth: 130, color: "yellow" }}
                 value={review?.rating}
@@ -215,19 +199,21 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
             </div>
 
             <div>
-              <h1 className="mt-3 text-gray-500 text-sm">{review?.date}</h1>
+              <h1 className="mt-3 text-sm text-gray-600">{review?.date}</h1>
             </div>
 
+            {/* Button to open modal */}
             <label
               htmlFor="my_modal_7"
-              className="mt-10 cursor-pointer border px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg text-sm"
+              className="mt-10 cursor-pointer border px-6 py-3 rounded-lg shadow-lg hover:bg-gray-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 aria-hidden="true"
-                className="text-red-700 w-5 h-5"
+                className="text-red-700"
+                width="20"
               >
                 <path
                   fillRule="evenodd"
@@ -239,22 +225,22 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
 
             {/* Modal for report */}
             <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-            <div className="modal">
-              <div className="modal-box text-center rounded-md px-6 md:px-10 w-full md:w-[380px]">
-                <h1 className="text-lg md:text-[19px] font-bold mt-3 md:mt-5">
-                  Report Review
-                </h1>
-                <p className="text-start text-sm">
-                  Think this review should be removed or altered? Select a
-                  reason
-                </p>
+            <div className="modal" role="dialog">
+              <div className="modal-box text-center rounded-md px-10 w-[380px]">
+                <div>
+                  <h1 className="text-lg font-semibold mt-5">Report Review</h1>
+                  <p className="text-start text-sm text-gray-600">
+                    Think this review should be removed or altered? Select a
+                    reason
+                  </p>
+                </div>
                 <select
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setReport({
                       reason: e.target.value,
                       report: e.target.value,
-                    })
-                  }
+                    });
+                  }}
                   className="input input-bordered text-sm h-[40px] w-full mt-4"
                 >
                   <option disabled value="">
@@ -264,40 +250,42 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
                     Address is in the review
                   </option>
                   <option value="Fake review">Fake review</option>
-                  <option value="review content inappropriate language">
-                    Inappropriate language
+                  <option value="Review content inappropriate language">
+                    Review content inappropriate language
                   </option>
-                  <option value="review content sensitive information">
-                    Sensitive information
+                  <option value="Review content sensitive information">
+                    Review content sensitive information
                   </option>
-                  <option value="others">Others</option>
+                  <option value="Others">Others</option>
                 </select>
                 <div
                   className={`${report?.reason === "others" ? "" : "hidden"}`}
                 >
                   <h1 className="mt-3 text-sm text-start">Reason</h1>
                   <textarea
-                    onChange={(e) =>
-                      setReport({ ...report, report: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setReport({ ...report, report: e.target.value });
+                    }}
                     className="input input-bordered w-full mt-2 py-2 px-4 text-sm h-[100px]"
                     placeholder="Write your reasoning here..."
                   ></textarea>
-                  <p className="text-sm text-start -mt-[6px]">
+                  <p className="text-xs text-start -mt-[6px]">
                     Limit of 250 Characters: 0/250
                   </p>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 flex justify-center">
                   <label
-                    className="py-2 md:py-3 cursor-pointer px-4 md:px-5 text-sm rounded-lg border"
+                    className="py-3 cursor-pointer px-5 text-xs ml-6 rounded-[8px] border hover:bg-gray-200"
                     htmlFor="my_modal_7"
                   >
                     Cancel
                   </label>
                   <label
-                    className="py-2 md:py-3 cursor-pointer px-4 md:px-5 text-sm rounded-lg bg-teal-600 hover:bg-teal-700 text-white"
+                    className="py-3 cursor-pointer px-5 text-xs ml-6 rounded-[8px] bg-teal-600 hover:bg-teal-700 text-white"
                     htmlFor="my_modal_7"
-                    onClick={() => handleReportSubmit()}
+                    onClick={() => {
+                      handleReportSubmit();
+                    }}
                   >
                     Submit
                   </label>
@@ -309,54 +297,9 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
             </div>
           </div>
 
-          {/* mid section */}
-          <section className="w-full md:w-3/12 pt-5 flex flex-col items-start justify-start px-5">
-            {/* Street */}
-            <div className={review?.street === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">Street:</span>{" "}
-              <span className="text-sm">{review?.street}</span>
-            </div>
-
-            {/* District */}
-            <div className={review?.district === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">District:</span>{" "}
-              <span className="text-sm">{review?.district}</span>
-            </div>
-
-            {/* City */}
-            <div className={review?.city === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">City:</span>{" "}
-              <span className="text-sm">{review?.city}</span>
-            </div>
-
-            {/* State */}
-            <div className={review?.state === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">State:</span>{" "}
-              <span className="text-sm">{review.state}</span>
-            </div>
-
-            {/* Country */}
-            <div className={review?.country === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">Country:</span>{" "}
-              <span className="text-sm">{review.country}</span>
-            </div>
-
-            {/* Zip Code */}
-            <div className={review?.zipCode === "" ? "hidden" : "mt-1 "}>
-              <span className="font-semibold">Zip Code:</span>{" "}
-              <span className="text-sm">{review.zipCode}</span>
-            </div>
-            <Link onClick={()=>{window.scrollTo(0,0)}} to={`/single/location/${review._id}`} className="mt-2 underline text-sm">
-              Read All Reviews
-            </Link>
-          </section>
-
-          {/* Right section */}
-          <div className="w-full md:w-6/12 pt-10 flex flex-col items-start justify-start p-5 px-5">
-            <h1 className="font-semibold text-sm md:text-[16px]">
-              Written Review
-            </h1>
-            <p className="mt-1 text-sm">{review?.review}</p>
+          <div className="w-full h-full min-h-[200px] pt-4 flex flex-col items-start justify-start p-6">
+            <h1 className="font-semibold text-lg">Written Review</h1>
+            <p className="mt-5 text-sm text-gray-700">{review?.review}</p>
           </div>
         </div>
       </div>

@@ -25,16 +25,13 @@ const LandlordSinglePage = () => {
       review: review?._id,
       report: report.report,
     };
-    fetch(
-      `http://localhost:5000/api/v1/report/create`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reportData),
-      }
-    )
+    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reportData),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data?.status === "success") {
@@ -46,26 +43,18 @@ const LandlordSinglePage = () => {
   // All UseEffects
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `http://localhost:5000/api/v1/review/single/${id}`
-    )
+    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlord/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setReview(data?.data);
-
-        fetch(
-          `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${data?.data?.landlordName}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setReviews(data?.data);
-            setLoading(false);
-          });
+        if (data?.status === "success") {
+          setReviews(data.data);
+          setReview(data.review);
+          setLoading(false);
+        }
       });
   }, [id]);
 
   const total = countTotalReview(reviews, reviews?.length || 0);
-  console.log(total)
 
   return (
     <div>
@@ -171,10 +160,22 @@ const LandlordSinglePage = () => {
       ) : (
         <div>
           {reviews.map((review) => (
-            <section key={review?._id} className="">
+            <section key={review?._id} className="max-w-[900px] mx-auto">
               <div className="m-5 rounded-2xl">
                 <div className="md:flex mx-auto mb-5 border shadow-lg rounded-2xl">
-                  <div className="flex flex-col items-center justify-start w-full md:w-3/12 pt-4 bg-gray-50 rounded-2xl">
+                  <div className="flex flex-col items-center justify-start w-full md:w-5/12 pt-4 bg-gray-50 rounded-2xl">
+                    <Link
+                      onClick={() => {
+                        window.scrollTo(0, 0);
+                      }}
+                      to={`/single/location/${id}`}
+                      className="mb-7 hover:underline"
+                    >
+                      <h1 className="px-3 font-semibold text-[16px] text-center">
+                        {review?.location}
+                      </h1>
+                      <h1 className="text-center">Read All Reviews</h1>
+                    </Link>
                     <div>
                       <Rating
                         style={{ maxWidth: 110, color: "yellow" }}
@@ -294,68 +295,8 @@ const LandlordSinglePage = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="w-full md:w-3/12  min-h-[210px]  pt-2 flex flex-col items-start justify-start px-8">
-                    {/* Street */}
-                    <div className={review?.street === "" ? "hidden" : "mt-1 "}>
-                      <span className="font-semibold text-[15px]">
-                        Street:{" "}
-                      </span>
-                      <span className="text-[13px]">{review.street}</span>
-                    </div>
 
-                    {/* district */}
-                    <div
-                      className={review?.district === "" ? "hidden" : "mt-1 "}
-                    >
-                      <span className="font-semibold text-[15px]">
-                        District:{" "}
-                      </span>
-                      <span className="text-[13px]">{review.district}</span>
-                    </div>
-
-                    {/* City */}
-                    <div className={review?.city === "" ? "hidden" : "mt-1 "}>
-                      <span className="font-semibold text-[15px]">City: </span>
-                      <span className="text-[13px]">{review.city}</span>
-                    </div>
-
-                    {/* State */}
-                    <div className={review?.state === "" ? "hidden" : "mt-1 "}>
-                      <span className="font-semibold text-[15px]">State: </span>
-                      <span className="text-[13px]">{review.state}</span>
-                    </div>
-
-                    {/* Country */}
-                    <div
-                      className={review?.country === "" ? "hidden" : "mt-1 "}
-                    >
-                      <span className="font-semibold text-[15px]">
-                        Country:{" "}
-                      </span>
-                      <span className="text-[13px]">{review.country}</span>
-                    </div>
-
-                    {/* Zip Code */}
-                    <div
-                      className={review?.zipCode === "" ? "hidden" : "mt-1 "}
-                    >
-                      <span className="font-semibold text-[15px]">
-                        Zip Code:{" "}
-                      </span>
-                      <span className="text-[13px]">{review.zipCode}</span>
-                    </div>
-
-                    <Link
-                      onClick={() => {
-                        window.scrollTo(0, 0);
-                      }}
-                      to={`/single/location/${review._id}`}
-                      className="mt-5 hover:underline"
-                    >
-                      Read All Reviews
-                    </Link>
-                  </div>
-                  <div className="w-6/12  min-h-[210px]  pt-4 flex flex-col items-start justify-start p-3">
+                  <div className="w-7/12  min-h-[210px]  pt-4 flex flex-col items-start justify-start p-3">
                     <h1 className="font-[500] text-[16px]">{`Written Review`}</h1>
                     <p className="mt-5 text-[14px]">{review?.review}</p>
                   </div>

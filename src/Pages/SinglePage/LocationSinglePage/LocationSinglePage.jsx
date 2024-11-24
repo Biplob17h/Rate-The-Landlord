@@ -51,7 +51,7 @@ const LocationSinglePage = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:5000/api/v1/review/single/location/${id}`
+      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/single/location/${id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -62,7 +62,6 @@ const LocationSinglePage = () => {
 
   // count total rating
   const total = countTotalReview(reviews, reviews?.length || 0);
-  console.log(total)
 
   return (
     <div>
@@ -153,8 +152,8 @@ const LocationSinglePage = () => {
       {/******  Rating section design ******/}
       <div className="block min-h-screen mx-4 mt-8 md:mx-10 md:flex">
         {/* Left side section */}
-        <section className="w-full h-full min-h-screen md:w-3/12">
-          <div className="h-full min-h-screen p-5 bg-gray-100">
+        <section className="w-full md:w-3/12 h-full rounded-lg md:rounded-none md:min-h-screen">
+          <div className="p-5 bg-gray-100 h-full rounded-lg md:rounded-none md:min-h-screen">
             <div className="mb-4">
               <input
                 type="text"
@@ -174,43 +173,20 @@ const LocationSinglePage = () => {
                 className="w-full p-2 border border-gray-300 rounded-md"
               >
                 <option value="newest">Newest</option>
-
                 <option value="lowest">Lowest</option>
+                <option value="highest">Highest</option>
                 <option value="a to z">Name A to Z</option>
                 <option value="z to a">Name Z to A</option>
               </select>
             </div>
-            
 
             <div className="mb-4">
               <input
                 type="text"
-                name="state"
-                value={search.state}
+                name="location"
+                value={search.location}
                 onChange={handleInputChange}
-                placeholder="Search State / Province"
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div className="mb-4">
-              <input
-                type="text"
-                name="city"
-                value={search.city}
-                onChange={handleInputChange}
-                placeholder="Search City"
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div className="mb-4">
-              <input
-                type="text"
-                name="zipCode"
-                value={search.zipCode}
-                onChange={handleInputChange}
-                placeholder="Search ZIP / Postal Code"
+                placeholder="Search Location"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -218,13 +194,13 @@ const LocationSinglePage = () => {
             <div className="flex justify-between">
               <button
                 onClick={updateFilters}
-                className="px-4 py-2 text-white bg-teal-500 rounded-md"
+                className="bg-[#d6cc32] text-white px-4 py-2 rounded-md"
               >
                 Update Filters
               </button>
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 text-white bg-gray-400 rounded-md"
+                className="bg-gray-400 text-white px-4 py-2 rounded-md"
               >
                 Clear Filters
               </button>

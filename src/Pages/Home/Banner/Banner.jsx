@@ -11,7 +11,7 @@ const Banner = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${search}`
+      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlordName?landlordName=${search}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -20,7 +20,7 @@ const Banner = () => {
       });
   }, [search]);
   return (
-    <section className="flex items-center justify-center min-h-screen bg-white">
+    <section className="flex items-center justify-center bg-white">
       {/* Card container with a lighter gradient background */}
       <div className="shadow-lg p-10 w-full md:w-[95%] max-w-7xl mt-5 md:rounded-[15px] bg-gradient-to-l from-white to-[#706812]">
         {/* Section for PC view */}
@@ -137,7 +137,7 @@ const Banner = () => {
           />
           {/* search bar down info */}
           <div
-            className={`h-[200px] w-full absolute rounded-md border  top-[48px] left-0 bg-white ${
+            className={`h-[200px] w-full absolute rounded-md border  top-[48px] -left-2 bg-white ${
               search === "" ? "hidden" : ""
             }`}
           >

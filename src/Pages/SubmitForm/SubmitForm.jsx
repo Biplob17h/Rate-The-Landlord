@@ -6,42 +6,19 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getCurrentDateString } from "../../components/GetTodaysDate";
+import AddressFrom from "./AddressFrom/AddressFrom";
 
 const SubmitForm = () => {
+  //  use states
   const [rating, setRating] = useState(0);
-  const navigate = useNavigate();
-
-  // Search fields
   const [searchCommunity, setSearchCommunity] = useState("");
-  const [searchAddress, setSearchAddress] = useState("");
-
-  // Loading states
   const [loading, setLoading] = useState(false);
-  const [addressLoading, setAddressLoading] = useState(false);
-
-  // Data states
   const [reviews, setReviews] = useState([]);
   const [community, setCommunity] = useState("");
-  const [address, setAddress] = useState([]);
-  console.log(address);
-  const [formAddress, setFormAddress] = useState({
-    street: "",
-    district: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "",
-  });
-
-  // Show/hide states
+  const [address, setAddress] = useState("");
   const [showCommunity, setShowCommunity] = useState(false);
-  const [showAddress, setShowAddress] = useState(false);
 
-  // Filter locations within the United States
-  const filterResults = (data) =>
-    data?.filter(
-      (location) => location?.properties?.country === "United States"
-    );
+  const navigate = useNavigate();
 
   // Get today's date
   const date = new Date().toISOString().split("T")[0]; // Example: "2024-11-08"
@@ -50,20 +27,8 @@ const SubmitForm = () => {
   const handleRatingSubmit = (event) => {
     event.preventDefault();
 
-    // Compile address into a formatted string
-    const location = [
-      formAddress?.street,
-      formAddress?.city,
-      formAddress?.state,
-      formAddress?.country,
-      formAddress?.zipCode,
-    ]
-      .filter(Boolean) // Removes empty, null, or undefined values
-      .join(", ");
-
     const ratingData = {
-      ...formAddress,
-      location,
+      location: address,
       landlordName: community?.toUpperCase(),
       rating,
       review: event.target?.review?.value,
@@ -71,13 +36,16 @@ const SubmitForm = () => {
     };
 
     // Send rating data to the backend
-    fetch(`http://localhost:5000/api/v1/review/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ratingData),
-    })
+    fetch(
+      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ratingData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
@@ -94,7 +62,7 @@ const SubmitForm = () => {
     if (searchCommunity) {
       setLoading(true);
       fetch(
-        `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${searchCommunity}`
+        `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlordName?landlordName=${searchCommunity}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -105,23 +73,11 @@ const SubmitForm = () => {
     }
   }, [searchCommunity]);
 
-  // Fetch addresses based on search input
-  useEffect(() => {
-    if (searchAddress) {
-      setAddressLoading(true);
-      fetch(`https://photon.komoot.io/api/?q=${searchAddress}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const locations = filterResults(data?.features || []);
-          setAddress(locations);
-        })
-        .catch((error) => console.error("Error fetching addresses:", error))
-        .finally(() => setAddressLoading(false));
-    }
-  }, [searchAddress]);
   return (
     <div className="text-start">
       <SubmitTextBanner />
+
+      {/* ********************************************************** */}
 
       {/* Submit form for Big device*/}
       <form
@@ -189,175 +145,7 @@ const SubmitForm = () => {
         </div>
 
         {/* Address */}
-        <div className="mt-10">
-          <h1 className="ml-3 text-xl font-bold">Address</h1>
-          <input
-            type="text"
-            placeholder="Search for Address"
-            className="w-2/3 mt-1 input input-bordered"
-            value={searchAddress}
-            onChange={(e) => {
-              setSearchAddress(e.target.value);
-              setShowAddress(true);
-            }}
-          />
-
-          {/* Address model */}
-          <div
-            className={`h-[200px] border w-2/3 mt-[2px] ${
-              showAddress ? "" : "hidden"
-            } ${searchAddress === "" ? "hidden" : ""}`}
-          >
-            {addressLoading ? (
-              <div className="flex mt-[12%] justify-center">
-                <h1>Loading...</h1>
-              </div>
-            ) : (
-              <div className="h-[200px] overflow-scroll">
-                {address.length === 0 ? (
-                  <div>
-                    <h1 className="mt-20 font-semibold text-center">
-                      No match found
-                    </h1>
-                  </div>
-                ) : (
-                  <div>
-                    {address?.map((p, i) => (
-                      <div
-                        onClick={() => {
-                          setFormAddress({
-                            street: p?.properties?.street,
-                            district: p?.properties?.district,
-                            city: p?.properties?.city,
-                            state: p?.properties?.state,
-                            zipCode: p?.properties?.postcode,
-                            country: p?.properties?.country,
-                          });
-                          setShowAddress(false);
-                        }}
-                        key={i}
-                      >
-                        <h1 className="pl-5 h-[50px] border flex items-center cursor-pointer">
-                          {/* Street */}
-                          <span
-                            className={`${
-                              p?.properties?.district ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.district},
-                          </span>
-                          {/* city */}
-                          <span
-                            className={`${p?.properties?.city ? "" : "hidden"}`}
-                          >
-                            {p?.properties?.city},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.state ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.state},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.country ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.country},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.postcode ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.postcode}
-                          </span>
-                        </h1>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="flex mt-5">
-            {/* Street */}
-            <div className="w-full">
-              <h1 className="ml-3 font-bold">Street</h1>
-              <input
-                readOnly
-                value={formAddress.street}
-                type="text"
-                placeholder="Street"
-                className="w-full mt-1 input input-bordered"
-              />
-            </div>
-
-            {/* state */}
-            <div className="w-full">
-              <h1 className="ml-6 font-bold">District</h1>
-              <input
-                readOnly
-                value={formAddress.district}
-                type="text"
-                placeholder="District"
-                className="w-full mt-1 ml-3 input input-bordered"
-              />
-            </div>
-          </div>
-          <div className="flex mt-2">
-            {/* city */}
-            <div className="w-full">
-              <h1 className="ml-3 font-bold">City</h1>
-              <input
-                readOnly
-                value={formAddress.city}
-                type="text"
-                placeholder="city"
-                className="w-full mt-1 input input-bordered"
-              />
-            </div>
-
-            {/* state */}
-            <div className="w-full">
-              <h1 className="ml-6 font-bold">State</h1>
-              <input
-                readOnly
-                value={formAddress.state}
-                type="text"
-                placeholder="State"
-                className="w-full mt-1 ml-3 input input-bordered"
-              />
-            </div>
-          </div>
-          <div className="flex mt-2">
-            {/* zipCode */}
-            <div className="w-full">
-              <h1 className="ml-3 font-bold">Zip Code</h1>
-              <input
-                readOnly
-                value={formAddress.zipCode}
-                type="text"
-                placeholder="Zip Code"
-                className="w-full mt-1 input input-bordered"
-              />
-            </div>
-
-            {/* country */}
-            <div className="w-full">
-              <h1 className="ml-6 font-bold">Country</h1>
-              <input
-                readOnly
-                value={formAddress.country}
-                type="text"
-                placeholder="Country"
-                className="w-full mt-1 ml-3 input input-bordered"
-              />
-            </div>
-          </div>
-        </div>
+        <AddressFrom setAddress={setAddress} />
 
         {/* Rating */}
         <div className="mt-10">
@@ -371,7 +159,7 @@ const SubmitForm = () => {
           </div>
         </div>
 
-        {/* Rating */}
+        {/* Rating with text*/}
         <div className="mt-10">
           <h1 className="ml-3 text-xl font-bold">
             What should others know about this HOA?
@@ -458,165 +246,14 @@ const SubmitForm = () => {
         </div>
 
         {/* Address */}
-        <div className="mt-10">
-          <h1 className="ml-3 text-lg font-bold">Address</h1>
-          <input
-            type="text"
-            placeholder="Search for Address"
-            className="w-full mt-1 input input-bordered md:w-2/3"
-            value={searchAddress}
-            onChange={(e) => {
-              setSearchAddress(e.target.value);
-              setShowAddress(true);
-            }}
-          />
-
-          {/* Address model */}
-          <div
-            className={`h-[200px] border w-full mt-2 ${
-              showAddress ? "" : "hidden"
-            } ${searchAddress === "" ? "hidden" : ""} md:w-2/3`}
-          >
-            {addressLoading ? (
-              <div className="flex justify-center mt-10">
-                <h1>Loading...</h1>
-              </div>
-            ) : (
-              <div className="h-[200px] overflow-scroll">
-                {address.length === 0 ? (
-                  <div>
-                    <h1 className="mt-10 font-semibold text-center">
-                      No match found
-                    </h1>
-                  </div>
-                ) : (
-                  <div>
-                    {address?.map((p, i) => (
-                      <div
-                        onClick={() => {
-                          setFormAddress({
-                            street: p?.properties?.district,
-                            city: p?.properties?.city,
-                            state: p?.properties?.state,
-                            zipCode: p?.properties?.postcode,
-                            country: p?.properties?.country,
-                          });
-                          setShowAddress(false);
-                        }}
-                        key={i}
-                      >
-                        <h1 className="pl-5 h-[50px] border flex items-center cursor-pointer text-[13px]">
-                          {/* Street */}
-                          <span
-                            className={`${
-                              p?.properties?.district ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.district},
-                          </span>
-                          {/* city */}
-                          <span
-                            className={`${p?.properties?.city ? "" : "hidden"}`}
-                          >
-                            {p?.properties?.city},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.state ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.state},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.country ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.country},
-                          </span>
-                          <span
-                            className={`${
-                              p?.properties?.postcode ? "" : "hidden"
-                            }`}
-                          >
-                            {p?.properties?.postcode}
-                          </span>
-                        </h1>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Street */}
-          <div className="flex flex-col mt-5">
-            <h1 className="ml-3 font-bold">Street</h1>
-            <input
-              type="text"
-              value={formAddress.street}
-              placeholder="Street name"
-              readOnly
-              className="w-full mt-1 input input-bordered md:w-1/2"
-            />
-          </div>
-          <div className="flex flex-col mt-2 md:flex-row">
-            {/* City */}
-            <div className="w-full mb-2 md:mb-0">
-              <h1 className="ml-3 font-bold">City</h1>
-              <input
-                readOnly
-                value={formAddress.city}
-                type="text"
-                placeholder="City"
-                className="w-full mt-1 input input-bordered"
-              />
-            </div>
-            {/* State */}
-            <div className="w-full">
-              <h1 className="ml-3 font-bold">State</h1>
-              <input
-                readOnly
-                value={formAddress.state}
-                type="text"
-                placeholder="State"
-                className="w-full mt-1 input input-bordered md:ml-3"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col mt-2 md:flex-row">
-            {/* Zip Code */}
-            <div className="w-full mb-2 md:mb-0">
-              <h1 className="ml-3 font-bold">Zip Code</h1>
-              <input
-                readOnly
-                value={formAddress.zipCode}
-                type="text"
-                placeholder="Zip Code"
-                className="w-full mt-1 input input-bordered"
-              />
-            </div>
-            {/* Country */}
-            <div className="w-full">
-              <h1 className="ml-3 font-bold">Country</h1>
-              <input
-                readOnly
-                value={formAddress.country}
-                type="text"
-                placeholder="Country"
-                className="w-full mt-1 input input-bordered md:ml-3"
-              />
-            </div>
-          </div>
-        </div>
+        <AddressFrom setAddress={setAddress} />
 
         {/* Overall Experience */}
         <div className="mt-10">
           <h1 className="ml-3 text-lg font-bold">Overall Experience</h1>
-          <div>
+          <div className="mt-3">
             <Rating
-              style={{ maxWidth: 250 }}
+              style={{ maxWidth: 200 }}
               value={rating}
               onChange={setRating}
             />

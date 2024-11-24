@@ -25,10 +25,18 @@ const Footer = () => {
 
         {/* Link Section */}
         <div className="flex flex-col items-center md:flex-row md:space-x-6 mt-2 md:mt-0">
-          <Link to="/terms" className="text-gray-600 hover:underline text-sm">
+          <Link
+            to="/terms"
+            className="text-gray-600 hover:underline text-sm"
+            onClick={() => window.scrollTo(0, 0)} // Scrolls to the top
+          >
             Terms and Conditions
           </Link>
-          <Link to="/privacy" className="text-gray-600 hover:underline text-sm">
+          <Link
+            to="/privacy"
+            className="text-gray-600 hover:underline text-sm"
+            onClick={() => window.scrollTo(0, 0)} // Scrolls to the top
+          >
             Privacy Policy
           </Link>
         </div>
