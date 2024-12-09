@@ -11,7 +11,7 @@ const Banner = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlordName?landlordName=${search}`
+      `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${search}`
     )
       .then((response) => response.json())
       .then((data) => {

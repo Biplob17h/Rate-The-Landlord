@@ -11,8 +11,9 @@ const Reviews = () => {
     landlord: "",
     sort: "newest",
     location: "",
+    city: "",
+    state: "",
   });
-console.log(search)
   // State to store review data
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,8 @@ console.log(search)
       landlord: "",
       sort: "newest",
       location: "",
+      city: "",
+      state: "",
     });
     setRefresh(refresh + 1);
   };
@@ -41,7 +44,7 @@ console.log(search)
   const updateFilters = () => {
     setLoading(true);
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&location=${search?.location}`
+      `http://localhost:5000/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&location=${search?.location}&city=${search?.city}&state=${search?.state}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -55,7 +58,7 @@ console.log(search)
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&location=${search?.location}`
+      `http://localhost:5000/api/v1/review/all?landlord=${search?.landlord}&sort=${search?.sort}&location=${search?.location}&city=${search?.city}&state=${search?.state}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -94,7 +97,7 @@ console.log(search)
                 name="landlord"
                 value={search.landlord}
                 onChange={handleInputChange}
-                placeholder="Search Community"
+                placeholder="Search HOAs"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -114,6 +117,26 @@ console.log(search)
               </select>
             </div>
 
+            <div className="mb-4">
+              <input
+                type="text"
+                name="city"
+                value={search.city}
+                onChange={handleInputChange}
+                placeholder="Search City"
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="state"
+                value={search.state}
+                onChange={handleInputChange}
+                placeholder="Search State"
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
             <div className="mb-4">
               <input
                 type="text"

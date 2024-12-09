@@ -1,9 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import countTotalReview from "../../../components/CountTotal";
 import LocationMapSinglePage from "./LocationMapSinglePage";
+import SubmitForm from "../../SubmitForm/SubmitForm";
+import toast from "react-hot-toast";
+import AddressFrom from "../../SubmitForm/AddressFrom/AddressFrom";
+import ReCAPTCHA from "../../SubmitForm/ReCAPTCHA/ReCAPTCHA";
 
 const LocationSinglePage = () => {
   // State to store the selected filters
@@ -15,6 +19,12 @@ const LocationSinglePage = () => {
     city: "",
     zipCode: "",
   });
+
+  const [rating, setRating] = useState(0);
+  const [searchCommunity, setSearchCommunity] = useState("");
+  const [community, setCommunity] = useState("");
+  const [showCommunity, setShowCommunity] = useState(false);
+  const [token, setToken] = useState(null);
 
   // Handle filter changes
   const handleInputChange = (e) => {
@@ -39,6 +49,7 @@ const LocationSinglePage = () => {
   // state to store reviews
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // get Id
   const { id } = useParams();
@@ -48,11 +59,55 @@ const LocationSinglePage = () => {
     // You can add functionality here to update the list of reviews
   };
 
+  // Get today's date
+  const date = new Date().toISOString().split("T")[0]; // Example: "2024-11-08"
+
+  // Handle rating form submission
+  const handleRatingSubmit = (event) => {
+    event.preventDefault();
+
+    const ratingData = {
+      location: reviews[0]?.location,
+      landlordName: community?.toUpperCase(),
+      rating,
+      review: event.target?.review?.value,
+      date,
+      city: reviews[0]?.city,
+      state: reviews[0]?.state,
+    };
+
+    if (
+      ratingData.location === "" ||
+      ratingData.lordName === "" ||
+      ratingData.rating === 0 ||
+      ratingData.review === ""
+    ) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
+    // Send rating data to the backend
+    fetch(`http://localhost:5000/api/v1/review/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ratingData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          toast.success("Review submitted successfully!");
+          navigate("/reviews");
+          window.scrollTo(0, 0);
+        }
+      })
+      .catch((error) => console.error("Error submitting review:", error));
+  };
+
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/single/location/${id}`
-    )
+    fetch(`http://localhost:5000/api/v1/review/single/location/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data?.data);
@@ -72,7 +127,7 @@ const LocationSinglePage = () => {
             {reviews[0]?.location}
           </h1>
           <p>
-            Read {reviews?.length} reviews  for{" "}
+            Read {reviews?.length} reviews for{" "}
             <span className="">{reviews[0]?.location}</span>
           </p>
         </div>
@@ -96,11 +151,127 @@ const LocationSinglePage = () => {
             If you&rsquo;ve rented in this city, share your experience with
             other tenants.
           </p>
-          <Link to={"/submit"}>
-            <button className="mt-[15px] bg-[#d6cc32] text-white py-2 px-4 rounded-[7px]">
-              Submit a review
-            </button>
-          </Link>
+          {/* Button for open modal  */}
+          <label
+            htmlFor="my_modal_6"
+            className="btn p-3 bg-[#d6cc32] text-white text-[16px] mt-5"
+          >
+            Submit a review
+          </label>
+          <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+          <div className="modal" role="dialog">
+            <div className="modal-box">
+              <form
+                onSubmit={handleRatingSubmit}
+                className=" border  h-full pb-10 rounded-[8px] shadow-xl px-[4%] pt-5 hidden md:block"
+              >
+                {/* Name of Community */}
+                <div>
+                  <h1 className="ml-3 text-xl font-bold">Name of Community</h1>
+                  <input
+                    type="text"
+                    placeholder="Name of Community"
+                    className="w-2/3 mt-1 input input-bordered"
+                    value={community}
+                    onChange={(e) => {
+                      setSearchCommunity(e.target.value);
+                      setCommunity(e.target.value);
+                      setShowCommunity(true);
+                    }}
+                  />
+                </div>
+                {/* Community model */}
+
+                <div
+                  className={`${showCommunity ? "" : "hidden"} ${
+                    searchCommunity === "" ? "hidden" : ""
+                  } h-[200px] border w-2/3 mt-[2px]`}
+                >
+                  {loading ? (
+                    <div className="flex mt-[12%] justify-center">
+                      <h1>Loading...</h1>
+                    </div>
+                  ) : (
+                    <div>
+                      {reviews?.length === 0 ? (
+                        <div>
+                          <h1 className="mt-20 font-semibold text-center">
+                            No match found
+                          </h1>
+                        </div>
+                      ) : (
+                        <div>
+                          {reviews?.map((review) => {
+                            return (
+                              <div
+                                key={review._id}
+                                className="flex items-center justify-between"
+                              >
+                                <h2
+                                  onClick={() => {
+                                    setCommunity(review.landlordName);
+                                    setShowCommunity(false);
+                                  }}
+                                  className="w-full p-3 pl-5 text-lg font-bold border cursor-pointer"
+                                >
+                                  {review.landlordName}
+                                </h2>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                {/* Address */}
+                <div>
+                  <h1 className="text-[18px] font-semibold mt-5 ">Location : {reviews[0]?.location}</h1>
+                </div>
+
+                {/* Rating */}
+                <div className="mt-10">
+                  <h1 className="ml-3 text-xl font-bold">Overall Experience</h1>
+                  <div>
+                    <Rating
+                      style={{ maxWidth: 250 }}
+                      value={rating}
+                      onChange={setRating}
+                    />
+                  </div>
+                </div>
+
+                {/* Rating with text*/}
+                <div className="mt-10">
+                  <h1 className="ml-3 text-xl font-bold">
+                    What should others know about this HOA?
+                  </h1>
+                  <textarea
+                    name="review"
+                    placeholder="Write a review"
+                    className="input input-bordered w-2/3 mt-1 p-5 h-[150px]"
+                    rows={5}
+                  />
+                </div>
+
+                {/* ReCAPTCHA */}
+                <ReCAPTCHA token={token} setToken={setToken} />
+
+                {/* Submit Button */}
+
+                <div className="flex items-center justify-center gap-10">
+                  <div className="modal-action">
+                    <label htmlFor="my_modal_6" className="btn">
+                      Close
+                    </label>
+                  </div>
+                  <button className="btn p-3 bg-[#d6cc32] text-white text-[16px] mt-6">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </section>
       </section>
 
@@ -160,7 +331,7 @@ const LocationSinglePage = () => {
                 name="landlord"
                 value={search.landlord}
                 onChange={handleInputChange}
-                placeholder="Search Community"
+                placeholder="Search HOAs"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -180,6 +351,26 @@ const LocationSinglePage = () => {
               </select>
             </div>
 
+            <div className="mb-4">
+              <input
+                type="text"
+                name="city"
+                value={search.city}
+                onChange={handleInputChange}
+                placeholder="Search City"
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="state"
+                value={search.state}
+                onChange={handleInputChange}
+                placeholder="Search State"
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
             <div className="mb-4">
               <input
                 type="text"

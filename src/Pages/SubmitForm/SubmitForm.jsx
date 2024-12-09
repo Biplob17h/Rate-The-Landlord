@@ -7,6 +7,7 @@ import "@smastrom/react-rating/style.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getCurrentDateString } from "../../components/GetTodaysDate";
 import AddressFrom from "./AddressFrom/AddressFrom";
+import ReCAPTCHA from "./ReCAPTCHA/ReCAPTCHA";
 
 const SubmitForm = () => {
   //  use states
@@ -17,6 +18,9 @@ const SubmitForm = () => {
   const [community, setCommunity] = useState("");
   const [address, setAddress] = useState("");
   const [showCommunity, setShowCommunity] = useState(false);
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [token, setToken] = useState(null);
 
   const navigate = useNavigate();
 
@@ -33,11 +37,23 @@ const SubmitForm = () => {
       rating,
       review: event.target?.review?.value,
       date,
+      city,
+      state,
     };
+
+    if (
+      ratingData.location === "" ||
+      ratingData.lordName === "" ||
+      ratingData.rating === 0 ||
+      ratingData.review === ""
+    ) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
 
     // Send rating data to the backend
     fetch(
-      `https://rate-the-landlord-server-1.onrender.com/api/v1/review/create`,
+      `http://localhost:5000/api/v1/review/create`,
       {
         method: "POST",
         headers: {
@@ -62,7 +78,7 @@ const SubmitForm = () => {
     if (searchCommunity) {
       setLoading(true);
       fetch(
-        `https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlordName?landlordName=${searchCommunity}`
+        `http://localhost:5000/api/v1/review/all/landlordName?landlordName=${searchCommunity}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -145,7 +161,11 @@ const SubmitForm = () => {
         </div>
 
         {/* Address */}
-        <AddressFrom setAddress={setAddress} />
+        <AddressFrom
+          setAddress={setAddress}
+          setCity={setCity}
+          setState={setState}
+        />
 
         {/* Rating */}
         <div className="mt-10">
@@ -171,6 +191,9 @@ const SubmitForm = () => {
             rows={5}
           />
         </div>
+
+        {/* ReCAPTCHA */}
+        <ReCAPTCHA token={token} setToken={setToken} />
 
         {/* Submit Button */}
         <button
@@ -246,7 +269,11 @@ const SubmitForm = () => {
         </div>
 
         {/* Address */}
-        <AddressFrom setAddress={setAddress} />
+        <AddressFrom
+          setAddress={setAddress}
+          setCity={setCity}
+          setState={setState}
+        />
 
         {/* Overall Experience */}
         <div className="mt-10">
@@ -272,6 +299,9 @@ const SubmitForm = () => {
             rows={5}
           />
         </div>
+
+        {/* ReCAPTCHA */}
+        <ReCAPTCHA token={token} setToken={setToken} />
 
         {/* Submit Button */}
         <button className="px-4 py-3 mt-5 rounded-md text-white bg-[#d6cc32] hover:bg-[#b4ab2a] w-full md:w-auto">

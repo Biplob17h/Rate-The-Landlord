@@ -2,14 +2,19 @@
 import { Rating } from "@smastrom/react-rating";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
-const ReviewSinglePage = ({ review, report, setReport }) => {
+const ReviewSinglePage = ({ review }) => {
+  const [report, setReport] = useState({
+    report: "Address is in the review",
+    reason: "Address is in the review"
+  })
   const handleReportSubmit = () => {
     const reportData = {
       review: review?._id,
       report: report.report,
     };
-    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
+    fetch(`http://localhost:5000/api/v1/report/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +121,7 @@ const ReviewSinglePage = ({ review, report, setReport }) => {
                   <option value="Review content sensitive information">
                     Review content sensitive information
                   </option>
-                  <option value="Others">Others</option>
+                  <option value="others">Others</option>
                 </select>
                 <div
                   className={`${report?.reason === "others" ? "" : "hidden"}`}

@@ -25,7 +25,7 @@ const LandlordSinglePage = () => {
       review: review?._id,
       report: report.report,
     };
-    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/report/create`, {
+    fetch(`http://localhost:5000/api/v1/report/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const LandlordSinglePage = () => {
   // All UseEffects
   useEffect(() => {
     setLoading(true);
-    fetch(`https://rate-the-landlord-server-1.onrender.com/api/v1/review/all/landlord/${id}`)
+    fetch(`http://localhost:5000/api/v1/review/all/landlord/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.status === "success") {
